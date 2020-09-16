@@ -38,6 +38,9 @@ public class Moth : FireSource
 
     private void GetClosestFireSource() {
         closestFireSource = FireSourceManager.Instance.GetClosestActiveSource(transform.position, LightDetectionRange, this);
+        if (closestFireSource == null)
+            return;
+
         if (closestFireSource.CompareTag("Player")) {
             followingPlayer = true;
         }

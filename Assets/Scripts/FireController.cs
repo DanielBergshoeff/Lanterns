@@ -32,10 +32,6 @@ public class FireController : FireSource
 
     private Color emissionColor;
 
-    private void OnDestroy() {
-        PlayerMat.SetColor("_EmissionColor", emissionColor);
-    }
-
     private void Awake() {
         Instance = this;
     }
@@ -44,6 +40,8 @@ public class FireController : FireSource
     protected override void Start()
     {
         emissionColor = PlayerMat.GetColor("_EmissionColor");
+        PlayerMat = Instantiate(PlayerMat);
+        GetComponentInChildren<SkinnedMeshRenderer>().material = PlayerMat;
         base.Start();
     }
 
