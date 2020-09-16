@@ -39,7 +39,6 @@ public class FlameController : MonoBehaviour
                 transform.position = targetFireSource.transform.position;
                 switchingFireSource = false;
                 currentFireSource = targetFireSource;
-                currentFireSource.Activated = true;
                 targetFireSource = null;
             }
         }
@@ -54,8 +53,6 @@ public class FlameController : MonoBehaviour
 
     public void NewFireSource(FireSource fs) {
         targetFireSource = fs;
-        if (currentFireSource != null)
-            currentFireSource.Activated = false;
 
         startPosition = transform.position;
         switchingFireSource = true;
