@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class FireController : MonoBehaviour
+public class FireController : FireSource
 {
     public static FireController Instance;
     public Animator PlayerAnimator;
@@ -32,20 +32,34 @@ public class FireController : MonoBehaviour
 
     private Color emissionColor;
 
-    private void OnDestroy() {
-        PlayerMat.SetColor("_EmissionColor", emissionColor);
-    }
-
     private void Awake() {
         Instance = this;
     }
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
         emissionColor = PlayerMat.GetColor("_EmissionColor");
+        PlayerMat = Instantiate(PlayerMat);
+        GetComponentInChildren<SkinnedMeshRenderer>().material = PlayerMat;
+        base.Start();
+    }
+
+    public override void Light() {
+        base.Light();
+
+        FirePower += 0.2f;
         PlayerMat.SetColor("_EmissionColor", emissionColor * ((MaxEmissionIntensity - MinEmissionIntensity) * FirePower + MinEmissionIntensity));
         PlayerLight.intensity = FirePower;
+    }
+
+    public override void Delight() {
+        FirePower -= 0.2f;
+        PlayerMat.SetColor("_EmissionColor", emissionColor * ((MaxEmissionIntensity - MinEmissionIntensity) * FirePower + MinEmissionIntensity));
+        PlayerLight.intensity = FirePower;
+
+        if (FirePower <= 0f)
+            Lit = false;
     }
 
     // Update is called once per frame
@@ -116,9 +130,7 @@ public class FireController : MonoBehaviour
         if (Physics.Raycast(ray, out hit, 100f, LitLayer)) {
             if (hit.collider.CompareTag("FireSource")) {
                 if (FirePower < 1f) {
-                    FirePower += 0.2f;
-                    PlayerMat.SetColor("_EmissionColor", emissionColor * ((MaxEmissionIntensity - MinEmissionIntensity) * FirePower + MinEmissionIntensity));
-                    PlayerLight.intensity = FirePower;
+                    Light();
                     FireSource fs = hit.collider.GetComponent<FireSource>();
                     fs.Delight();
                 }
@@ -132,9 +144,7 @@ public class FireController : MonoBehaviour
         if (Physics.Raycast(ray, out hit, 100f, UnlitLayer)) {
             if (hit.collider.CompareTag("FireSource")) {
                 if (FirePower > 0f) {
-                    FirePower -= 0.2f;
-                    PlayerMat.SetColor("_EmissionColor", emissionColor * ((MaxEmissionIntensity - MinEmissionIntensity) * FirePower + MinEmissionIntensity));
-                    PlayerLight.intensity = FirePower;
+                    Delight();
                     FireSource fs = hit.collider.GetComponent<FireSource>();
                     fs.Light();
                 }

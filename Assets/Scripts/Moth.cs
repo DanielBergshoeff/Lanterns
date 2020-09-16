@@ -9,7 +9,9 @@ public class Moth : FireSource
     public float FlySpeed = 0.5f;
     public float LightDetectionRange = 20f;
 
+    private float minDistance = 0.5f;
     private FireSource closestFireSource;
+    private bool followingPlayer;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -24,12 +26,27 @@ public class Moth : FireSource
     }
 
     private void Update() {
-        if (closestFireSource != null)
-            transform.position = Vector3.MoveTowards(transform.position, closestFireSource.transform.position, Time.deltaTime * FlySpeed);
+        float f = followingPlayer ? 2f : 0f;
+        if (closestFireSource == null)
+            return;
+        if ((closestFireSource.transform.position + Vector3.up * f - transform.position).sqrMagnitude < minDistance)
+            return;
+
+        transform.position = Vector3.MoveTowards(transform.position, closestFireSource.transform.position + Vector3.up * f, Time.deltaTime * FlySpeed);
+        
     }
 
     private void GetClosestFireSource() {
         closestFireSource = FireSourceManager.Instance.GetClosestActiveSource(transform.position, LightDetectionRange, this);
+        if (closestFireSource == null)
+            return;
+
+        if (closestFireSource.CompareTag("Player")) {
+            followingPlayer = true;
+        }
+        else {
+            followingPlayer = false;
+        }
         transform.rotation = Quaternion.LookRotation(transform.forward);
         Invoke("GetClosestFireSource", UpdateTime);
     }
