@@ -7,6 +7,7 @@ public class Shadow : MonoBehaviour
     public float UpdateTime = 2f;
     public float FlySpeed = 0.5f;
     public float LightEatDisplacement = 1f;
+    public float LightDetectionRange = 20f;
 
     private FireSource closestFireSource;
     private bool dying = false;
@@ -62,7 +63,7 @@ public class Shadow : MonoBehaviour
     }
 
     private void GetClosestFireSource() {
-        closestFireSource = FireSourceManager.Instance.GetClosestActiveSource(transform.position);
+        closestFireSource = FireSourceManager.Instance.GetClosestActiveSource(transform.position, LightDetectionRange);
         Invoke("GetClosestFireSource", UpdateTime);
     }
 
@@ -78,6 +79,20 @@ public class Shadow : MonoBehaviour
             FireSource fs = other.GetComponent<FireSource>();
             if (fs != null && fs.Lit)
                 EatLight(fs);
+        }
+    }
+
+    private void OnTriggerExit(Collider other) {
+        if (other.CompareTag("FireSource")) {
+            if (!eating)
+                return;
+            FireSource fs = other.GetComponent<FireSource>();
+
+            if (eatingFs != fs)
+                return;
+
+            eating = false;
+            eatingFs = null;
         }
     }
 

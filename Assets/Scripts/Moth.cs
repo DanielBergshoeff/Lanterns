@@ -1,18 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class Moth : MonoBehaviour
+public class Moth : FireSource
 {
     public float UpdateTime = 2f;
     public float FlySpeed = 0.5f;
+    public float LightDetectionRange = 20f;
 
     private FireSource closestFireSource;
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         Invoke("GetClosestFireSource", UpdateTime);
+    }
+
+    public override void Delight() {
+        base.Delight();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     private void Update() {
@@ -21,7 +29,8 @@ public class Moth : MonoBehaviour
     }
 
     private void GetClosestFireSource() {
-        closestFireSource = FireSourceManager.Instance.GetClosestActiveSource(transform.position);
+        closestFireSource = FireSourceManager.Instance.GetClosestActiveSource(transform.position, LightDetectionRange, this);
+        transform.rotation = Quaternion.LookRotation(transform.forward);
         Invoke("GetClosestFireSource", UpdateTime);
     }
 }

@@ -108,7 +108,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UpdateTime: 2
-  FlySpeed: 0.5
+  FlySpeed: 1
+  LightEatDisplacement: 1
 --- !u!54 &479059368844967286
 Rigidbody:
   m_ObjectHideFlags: 0
