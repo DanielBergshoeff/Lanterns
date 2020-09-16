@@ -28,8 +28,15 @@ public class FireSourceManager : MonoBehaviour
                 continue;
 
             float sqrDistance = (fs.transform.position - pos).sqrMagnitude;
+
             if (sqrDistance > closest || sqrDistance > maxDistance * maxDistance)
                 continue;
+
+            if (fs.CompareTag("Player")) {
+                sqrDistance = maxDistance * maxDistance;
+                if (sqrDistance < closest)
+                    continue;
+            }
 
             closest = sqrDistance;
             closestFs = fs;
@@ -49,6 +56,12 @@ public class FireSourceManager : MonoBehaviour
             float sqrDistance = (fs.transform.position - pos).sqrMagnitude;
             if (sqrDistance > closest || sqrDistance > maxDistance * maxDistance)
                 continue;
+
+            if (fs.CompareTag("Player")) {
+                sqrDistance = maxDistance * maxDistance;
+                if (sqrDistance > closest)
+                    continue;
+            }
 
             closest = sqrDistance;
             closestFs = fs;

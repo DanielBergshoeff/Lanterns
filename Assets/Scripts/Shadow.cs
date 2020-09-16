@@ -20,6 +20,7 @@ public class Shadow : MonoBehaviour
     private float currentDisplacement = 0f;
     private bool eating = false;
     private FireSource eatingFs;
+    private bool eatingPlayer = false;
 
     // Start is called before the first frame update
     void Start()
@@ -53,6 +54,10 @@ public class Shadow : MonoBehaviour
             myMeshRenderer.material.SetFloat("_Displacement", currentDisplacement);
             if(currentDisplacement >= LightEatDisplacement) {
                 eating = false;
+                if (eatingPlayer) {
+                    StartDeath(eatingFs.transform);
+                    eatingPlayer = false;
+                }
                 eatingFs.Delight();
             }
         }
@@ -67,23 +72,37 @@ public class Shadow : MonoBehaviour
         Invoke("GetClosestFireSource", UpdateTime);
     }
 
+    private void StartDeath(Transform other) {
+        barrierScale = other.localScale.x;
+        dying = true;
+        dyingProcess = 0f;
+        myMeshRenderer.material.SetVector("_DiffusePosition", other.position);
+        myCollider.enabled = false;
+    }
+
     private void OnTriggerEnter(Collider other) {
+        if (eating)
+            return;
+
         if (other.CompareTag("Barrier")) {
-            barrierScale = other.transform.localScale.x;
-            dying = true;
-            dyingProcess = 0f;
-            myMeshRenderer.material.SetVector("_DiffusePosition", other.transform.position);
-            myCollider.enabled = false;
+            StartDeath(other.transform);
         }
-        else if (other.CompareTag("FireSource")) {
+        else if (other.CompareTag("FireSource") || other.CompareTag("Player")) {
             FireSource fs = other.GetComponent<FireSource>();
-            if (fs != null && fs.Lit)
+            if (fs != null && fs.Lit && fs == closestFireSource) {
                 EatLight(fs);
+                if (other.CompareTag("Player")) {
+                    eatingPlayer = true;
+                }
+            }
         }
     }
 
     private void OnTriggerExit(Collider other) {
-        if (other.CompareTag("FireSource")) {
+        if (!eating)
+            return;
+
+        if (other.CompareTag("FireSource") || other.CompareTag("Player")) {
             if (!eating)
                 return;
             FireSource fs = other.GetComponent<FireSource>();
@@ -92,6 +111,7 @@ public class Shadow : MonoBehaviour
                 return;
 
             eating = false;
+            eatingPlayer = false;
             eatingFs = null;
         }
     }

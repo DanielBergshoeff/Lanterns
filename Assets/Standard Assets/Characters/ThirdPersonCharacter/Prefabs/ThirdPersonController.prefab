@@ -1476,7 +1476,7 @@ GameObject:
   - component: {fileID: 242626806}
   m_Layer: 0
   m_Name: ThirdPersonController
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1528,9 +1528,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.3
-  m_Height: 1.6
+  m_Height: 1
   m_Direction: 1
-  m_Center: {x: 0, y: 0.8, z: 0}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!82 &7140329465808081279
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1639,6 +1639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e5c0f09542ca5d42ac1a88d1227b497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Lit: 1
   PlayerAnimator: {fileID: 0}
   AimTransform: {fileID: 952778165}
   AimTransformLight: {fileID: 952778165}
@@ -1655,7 +1656,7 @@ MonoBehaviour:
     m_Bits: 256
   MinEmissionIntensity: 0
   MaxEmissionIntensity: 2
-  FirePower: 1
+  FirePower: 0.8
 --- !u!114 &242626802
 MonoBehaviour:
   m_ObjectHideFlags: 0
