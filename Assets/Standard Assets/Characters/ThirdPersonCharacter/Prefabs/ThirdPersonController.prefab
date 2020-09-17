@@ -184,6 +184,7 @@ MonoBehaviour:
   AimTransformDouse: {fileID: 1408318492}
   GlassMat: {fileID: 2100000, guid: 486230940b2113641960d1562e326fa3, type: 2}
   LitMat: {fileID: 2100000, guid: 0fc86247a80082b48bbd26cc314e1d42, type: 2}
+  LitGreenMat: {fileID: 2100000, guid: 08fc096299f1a0741bbf35a661257c1d, type: 2}
   PlayerMat: {fileID: 2100000, guid: 7d1d638d3e9e5bd41a55ac23d8312ba1, type: 2}
   PlayerLight: {fileID: 1448916988}
   UnlitLayer:
