@@ -2,18 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PatternLanternGroup : MonoBehaviour
+public class AttackLanternGroup : LanternGroup
 {
-    public List<PatternLantern> PatternLanterns;
     public GameObject BeamPrefab;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        GetChildLanterns();
-    }
-
-    public void LanternGotLit(PatternLantern litLantern) {
+    public override void LanternGotLit(PatternLantern litLantern) {
         PatternLantern litLantern2 = null;
         foreach(PatternLantern pl in PatternLanterns) {
             if (pl == litLantern || !pl.Lit)
@@ -50,14 +43,5 @@ public class PatternLanternGroup : MonoBehaviour
         go.transform.GetChild(0).localScale = new Vector3(1f, length / 2f, 1f);
     }
 
-    private void GetChildLanterns() {
-        PatternLanterns = new List<PatternLantern>();
-        for (int i = 0; i < transform.childCount; i++) {
-            PatternLantern pl = transform.GetChild(i).GetComponent<PatternLantern>();
-            if (pl == null)
-                continue;
-            PatternLanterns.Add(pl);
-            pl.MyPatternLanternGroup = this;
-        }
-    }
+    
 }

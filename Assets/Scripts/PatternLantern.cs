@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class PatternLantern : Lantern
 {
-    public PatternLanternGroup MyPatternLanternGroup;
+    public LanternGroup MyLanternGroup;
 
     private float cooldownTime = 0f;
-
 
     private void Update() {
         if (cooldownTime > 0f)
@@ -16,6 +15,8 @@ public class PatternLantern : Lantern
 
     public override bool Delight() {
         base.Delight();
+
+        MyLanternGroup.LanternGotDelit(this);
 
         cooldownTime = 1f;
         return true;
@@ -27,7 +28,7 @@ public class PatternLantern : Lantern
 
         base.Light();
 
-        MyPatternLanternGroup.LanternGotLit(this);
+        MyLanternGroup.LanternGotLit(this);
 
         return true;
     }
