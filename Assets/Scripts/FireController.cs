@@ -131,11 +131,9 @@ public class FireController : FireSource
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width * fireXPosition / 2f + 0.5f * Screen.width, Screen.height * fireYPosition / 2f + 0.5f * Screen.height, 0f));
         if (Physics.Raycast(ray, out hit, 100f, LitLayer)) {
             if (hit.collider.CompareTag("FireSource")) {
-                if (FirePower < 1f) {
-                    FireSource fs = hit.collider.GetComponent<FireSource>();
-                    if (fs.Delight())
-                        Light();
-                }
+                FireSource fs = hit.collider.GetComponent<FireSource>();
+                if (fs.Delight())
+                    Light();
             }
         }
     }
