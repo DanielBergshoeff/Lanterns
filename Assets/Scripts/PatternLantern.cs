@@ -14,18 +14,21 @@ public class PatternLantern : Lantern
             cooldownTime -= Time.deltaTime;
     }
 
-    public override void Delight() {
+    public override bool Delight() {
         base.Delight();
 
         cooldownTime = 1f;
+        return true;
     }
 
-    public override void Light() {
+    public override bool Light() {
         if (cooldownTime > 0f)
-            return;
+            return false;
 
         base.Light();
 
         MyPatternLanternGroup.LanternGotLit(this);
+
+        return true;
     }
 }

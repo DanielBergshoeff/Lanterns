@@ -14,8 +14,6 @@ public class PatternLanternGroup : MonoBehaviour
     }
 
     public void LanternGotLit(PatternLantern litLantern) {
-        Debug.Log("Lantern got lit");
-
         PatternLantern litLantern2 = null;
         foreach(PatternLantern pl in PatternLanterns) {
             if (pl == litLantern || !pl.Lit)
@@ -27,8 +25,6 @@ public class PatternLanternGroup : MonoBehaviour
 
         if (litLantern2 == null)
             return;
-
-        Debug.Log("Second lantern!");
 
         litLantern.Delight();
         litLantern2.Delight();

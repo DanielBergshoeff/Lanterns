@@ -6,6 +6,7 @@ TagManager:
   tags:
   - FireSource
   - Barrier
+  - Beam
   layers:
   - Default
   - TransparentFX

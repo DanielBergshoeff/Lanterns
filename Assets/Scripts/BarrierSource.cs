@@ -13,19 +13,21 @@ public class BarrierSource : FireSource
         MyRenderer = GetComponent<MeshRenderer>();
     }
 
-    public override void Light() {
-        base.Light();
+    public override bool Light() {
+        Lit = true;
         MyRenderer.material = FireController.Instance.LitMat;
         MyPointLight.enabled = true;
         Barrier.SetActive(true);
         gameObject.layer = 8;
+        return true;
     }
 
-    public override void Delight() {
-        base.Delight();
+    public override bool Delight() {
+        Lit = false;
         MyRenderer.material = FireController.Instance.GlassMat;
         MyPointLight.enabled = false;
         Barrier.SetActive(false);
         gameObject.layer = 9;
+        return true;
     }
 }
