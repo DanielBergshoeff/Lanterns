@@ -45,21 +45,23 @@ public class FireController : FireSource
         base.Start();
     }
 
-    public override void Light() {
-        base.Light();
-
+    public override bool Light() {
+        Lit = true;
         FirePower += 0.2f;
         PlayerMat.SetColor("_EmissionColor", emissionColor * ((MaxEmissionIntensity - MinEmissionIntensity) * FirePower + MinEmissionIntensity));
         PlayerLight.intensity = FirePower;
+        return true;
     }
 
-    public override void Delight() {
+    public override bool Delight() {
         FirePower -= 0.2f;
         PlayerMat.SetColor("_EmissionColor", emissionColor * ((MaxEmissionIntensity - MinEmissionIntensity) * FirePower + MinEmissionIntensity));
         PlayerLight.intensity = FirePower;
 
         if (FirePower <= 0f)
             Lit = false;
+
+        return true;
     }
 
     // Update is called once per frame
@@ -130,9 +132,9 @@ public class FireController : FireSource
         if (Physics.Raycast(ray, out hit, 100f, LitLayer)) {
             if (hit.collider.CompareTag("FireSource")) {
                 if (FirePower < 1f) {
-                    Light();
                     FireSource fs = hit.collider.GetComponent<FireSource>();
-                    fs.Delight();
+                    if (fs.Delight())
+                        Light();
                 }
             }
         }
@@ -144,9 +146,9 @@ public class FireController : FireSource
         if (Physics.Raycast(ray, out hit, 100f, UnlitLayer)) {
             if (hit.collider.CompareTag("FireSource")) {
                 if (FirePower > 0f) {
-                    Delight();
                     FireSource fs = hit.collider.GetComponent<FireSource>();
-                    fs.Light();
+                    if (fs.Light())
+                        Delight();
                 }
             }
         }

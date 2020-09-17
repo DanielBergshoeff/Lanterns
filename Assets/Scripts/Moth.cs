@@ -20,9 +20,10 @@ public class Moth : FireSource
         Invoke("GetClosestFireSource", UpdateTime);
     }
 
-    public override void Delight() {
-        base.Delight();
+    public override bool Delight() {
+        Lit = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        return true;
     }
 
     private void Update() {
@@ -49,5 +50,10 @@ public class Moth : FireSource
         }
         transform.rotation = Quaternion.LookRotation(transform.forward);
         Invoke("GetClosestFireSource", UpdateTime);
+    }
+
+    public override bool Light() {
+        Lit = true;
+        return true;
     }
 }

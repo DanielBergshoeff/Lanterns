@@ -19,17 +19,19 @@ public class LinkedLantern : Lantern
         }
     }
 
-    public override void Delight() {
+    public override bool Delight() {
         base.Delight();
 
         linking = false;
+        return true;
     }
 
-    public override void Light() {
+    public override bool Light() {
         base.Light();
 
         linking = true;
         linkTime = Time.time + WaitTime;
+        return true;
     }
 
     private void LightLinkedLantern() {

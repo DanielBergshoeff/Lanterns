@@ -14,11 +14,7 @@ public abstract class FireSource : MonoBehaviour
         }
     }
 
-    public virtual void Light() {
-        Lit = true;
-    }
+    public abstract bool Light();
 
-    public virtual void Delight() {
-        Lit = false;
-    }
+    public abstract bool Delight();
 }

@@ -96,6 +96,9 @@ public class Shadow : MonoBehaviour
                 }
             }
         }
+        else if (other.CompareTag("Beam")) {
+            StartDeath(transform);
+        }
     }
 
     private void OnTriggerExit(Collider other) {
