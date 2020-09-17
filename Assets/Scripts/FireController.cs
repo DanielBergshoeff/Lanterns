@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class FireController : FireSource
 {
@@ -33,18 +34,17 @@ public class FireController : FireSource
 
     private Color emissionColor;
 
-    [System.NonSerialized]
-    public BarrierSource LatestBarrier;
+    public static int LatestBarrier = 0;
 
     private void Awake() {
         Instance = this;
     }
 
     public void ReturnToBarrier() {
-        if (LatestBarrier == null)
-            return;
+        transform.position = BarrierSourceManager.Instance.GetBarrierByNr(LatestBarrier).transform.position;
 
-        transform.position = LatestBarrier.transform.position;
+        if (LatestBarrier != 0)
+            BarrierSourceManager.Instance.GetBarrierByNr(LatestBarrier).Light();
     }
 
     // Start is called before the first frame update
@@ -54,6 +54,8 @@ public class FireController : FireSource
         PlayerMat = Instantiate(PlayerMat);
         GetComponentInChildren<SkinnedMeshRenderer>().material = PlayerMat;
         base.Start();
+
+        ReturnToBarrier();
     }
 
     public override bool Light() {
