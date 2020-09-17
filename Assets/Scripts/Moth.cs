@@ -18,15 +18,11 @@ public class Moth : FireSource
     {
         base.Start();
         Invoke("GetClosestFireSource", UpdateTime);
+        transform.position = FireController.Instance.transform.position + Vector3.up * 2f;
     }
 
     public override bool Delight() {
-        if (FireController.Instance.LatestBarrier == null)
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        else {
-            FireController.Instance.ReturnToBarrier();
-            transform.position = FireController.Instance.transform.position + Vector3.up * 2f;
-        }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         return true;
     }
 
@@ -38,7 +34,6 @@ public class Moth : FireSource
             return;
 
         transform.position = Vector3.MoveTowards(transform.position, closestFireSource.transform.position + Vector3.up * f, Time.deltaTime * FlySpeed);
-        
     }
 
     private void GetClosestFireSource() {

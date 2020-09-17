@@ -19,7 +19,7 @@ public class BarrierSource : FireSource
         MyPointLight.enabled = true;
         Barrier.SetActive(true);
         gameObject.layer = 8;
-        FireController.Instance.LatestBarrier = this;
+        FireController.LatestBarrier = BarrierSourceManager.Instance.GetBarrierNr(this);
         return false;
     }
 
