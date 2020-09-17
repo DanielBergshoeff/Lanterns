@@ -21,8 +21,12 @@ public class Moth : FireSource
     }
 
     public override bool Delight() {
-        Lit = false;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if (FireController.Instance.LatestBarrier == null)
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        else {
+            FireController.Instance.ReturnToBarrier();
+            transform.position = FireController.Instance.transform.position + Vector3.up * 2f;
+        }
         return true;
     }
 

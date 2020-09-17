@@ -13,6 +13,7 @@ public class FireController : FireSource
     public RectTransform AimTransformDouse;
     public Material GlassMat;
     public Material LitMat;
+    public Material LitGreenMat;
     public Material PlayerMat;
     public Light PlayerLight;
 
@@ -32,8 +33,18 @@ public class FireController : FireSource
 
     private Color emissionColor;
 
+    [System.NonSerialized]
+    public BarrierSource LatestBarrier;
+
     private void Awake() {
         Instance = this;
+    }
+
+    public void ReturnToBarrier() {
+        if (LatestBarrier == null)
+            return;
+
+        transform.position = LatestBarrier.transform.position;
     }
 
     // Start is called before the first frame update
