@@ -189,10 +189,10 @@ MonoBehaviour:
   PlayerLight: {fileID: 1448916988}
   UnlitLayer:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 513
   LitLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 257
   MinEmissionIntensity: 0
   MaxEmissionIntensity: 2
   FirePower: 0.8
