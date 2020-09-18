@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4256458684449718940}
   - component: {fileID: 4256458684449718939}
   - component: {fileID: 4256458684449718938}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Moth
   m_TagString: FireSource
   m_Icon: {fileID: 0}
