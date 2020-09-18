@@ -767,6 +767,7 @@ MonoBehaviour:
   Lit: 0
   MyPointLight: {fileID: 6147877044143061016}
   MyRenderer: {fileID: 6147877045019283438}
+  MyAudioSource: {fileID: 0}
 --- !u!65 &295853050389929990
 BoxCollider:
   m_ObjectHideFlags: 0

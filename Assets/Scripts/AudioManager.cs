@@ -8,6 +8,9 @@ public class AudioManager : MonoBehaviour
 
     public AudioClip PlayerRun;
     public AudioClip PlayerWalk;
+    public AudioClip LightFire;
+    public AudioClip LightBigFire;
+    public AudioClip BlowOutFire;
 
     // Start is called before the first frame update
     void Start() {

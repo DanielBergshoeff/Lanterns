@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -34,6 +35,10 @@ public class PlayerController : MonoBehaviour
         Move();
 
         if (jumping) {
+            if(transform.position.y < -30) {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+
             RaycastHit hit1;
             if (Physics.Raycast(transform.position + Vector3.up * 0.5f, -transform.up, out hit1, 0.51f)) {
                 //Landed

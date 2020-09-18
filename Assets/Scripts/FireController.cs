@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class FireController : FireSource
 {
@@ -13,6 +14,7 @@ public class FireController : FireSource
     public RectTransform AimTransformDouse;
     public Material GlassMat;
     public Material LitMat;
+    public Material LitGreenMat;
     public Material PlayerMat;
     public Light PlayerLight;
 
@@ -32,8 +34,17 @@ public class FireController : FireSource
 
     private Color emissionColor;
 
+    public static int LatestBarrier = 0;
+
     private void Awake() {
         Instance = this;
+    }
+
+    public void ReturnToBarrier() {
+        transform.position = BarrierSourceManager.Instance.GetBarrierByNr(LatestBarrier).transform.position;
+
+        if (LatestBarrier != 0)
+            BarrierSourceManager.Instance.GetBarrierByNr(LatestBarrier).Light();
     }
 
     // Start is called before the first frame update
@@ -43,6 +54,8 @@ public class FireController : FireSource
         PlayerMat = Instantiate(PlayerMat);
         GetComponentInChildren<SkinnedMeshRenderer>().material = PlayerMat;
         base.Start();
+
+        ReturnToBarrier();
     }
 
     public override bool Light() {
@@ -131,11 +144,9 @@ public class FireController : FireSource
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width * fireXPosition / 2f + 0.5f * Screen.width, Screen.height * fireYPosition / 2f + 0.5f * Screen.height, 0f));
         if (Physics.Raycast(ray, out hit, 100f, LitLayer)) {
             if (hit.collider.CompareTag("FireSource")) {
-                if (FirePower < 1f) {
-                    FireSource fs = hit.collider.GetComponent<FireSource>();
-                    if (fs.Delight())
-                        Light();
-                }
+                FireSource fs = hit.collider.GetComponent<FireSource>();
+                if (fs.Delight())
+                    Light();
             }
         }
     }

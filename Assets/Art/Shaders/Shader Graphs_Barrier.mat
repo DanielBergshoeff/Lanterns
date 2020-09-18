@@ -35,4 +35,4 @@ Material:
     - _Offset: -0.88
     m_Colors:
     - Vector2_299636E4: {r: 1, g: 10, b: 0, a: 0}
-    - _Emission: {r: 1.9999998, g: 1.4554973, b: 0.14659683, a: 0}
+    - _Emission: {r: 0.18017459, g: 2, b: 0.14659679, a: 0}
