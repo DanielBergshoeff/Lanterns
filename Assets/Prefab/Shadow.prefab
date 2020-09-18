@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 479059368844967283}
   - component: {fileID: 479059368844967287}
   - component: {fileID: 479059368844967286}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,6 +110,7 @@ MonoBehaviour:
   UpdateTime: 2
   FlySpeed: 1
   LightEatDisplacement: 1
+  LightDetectionRange: 20
 --- !u!54 &479059368844967286
 Rigidbody:
   m_ObjectHideFlags: 0

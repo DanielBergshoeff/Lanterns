@@ -36,8 +36,13 @@ public class LinkedLantern : Lantern
 
     private void LightLinkedLantern() {
         if (MyLinkedLantern != null && Lit) {
-            Delight();
-            MyLinkedLantern.Light();
+            if (!MyLinkedLantern.Lit) {
+                Delight();
+                MyLinkedLantern.Light();
+            }
+            else {
+                linkTime = Time.time + WaitTime;
+            }
         }
     }
 }
