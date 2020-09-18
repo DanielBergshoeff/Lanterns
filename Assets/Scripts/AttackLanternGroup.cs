@@ -6,11 +6,6 @@ public class AttackLanternGroup : LanternGroup
 {
     public GameObject BeamPrefab;
 
-    public Ray ray;
-    private Vector3 start;
-    private Vector3 direction;
-
-
     public override void LanternGotLit(PatternLantern litLantern) {
         PatternLantern litLantern2 = null;
         foreach(PatternLantern pl in PatternLanterns) {
@@ -41,19 +36,10 @@ public class AttackLanternGroup : LanternGroup
         }
 
         length += dir.magnitude;
-        
-        /*
-        start = litLantern2.transform.position;
-        direction = heading * length;*/
 
         GameObject go = Instantiate(BeamPrefab);
         go.transform.rotation = Quaternion.LookRotation(dir);
         go.transform.position = litLantern2.transform.position + heading * length / 2f;
         go.transform.GetChild(0).localScale = new Vector3(go.transform.GetChild(0).localScale.x, length / 2f, go.transform.GetChild(0).localScale.z);
     }
-
-    private void Update() {
-        Debug.DrawRay(start, direction, Color.red);
-    }
-
 }
