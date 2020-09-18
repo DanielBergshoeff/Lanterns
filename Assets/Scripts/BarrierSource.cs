@@ -8,9 +8,15 @@ public class BarrierSource : FireSource
     public MeshRenderer MyRenderer;
     public GameObject Barrier;
 
+    public AudioSource MyAudioSource;
+
+    private void Awake() {
+        MyRenderer = GetComponent<MeshRenderer>();
+        MyAudioSource = gameObject.AddComponent<AudioSource>();
+    }
+
     protected override void Start() {
         //base.Start();
-        MyRenderer = GetComponent<MeshRenderer>();
     }
 
     public override bool Light() {
@@ -20,6 +26,7 @@ public class BarrierSource : FireSource
         Barrier.SetActive(true);
         gameObject.layer = 8;
         FireController.LatestBarrier = BarrierSourceManager.Instance.GetBarrierNr(this);
+        MyAudioSource.PlayOneShot(AudioManager.Instance.LightBigFire, 0.3f);
         return false;
     }
 
