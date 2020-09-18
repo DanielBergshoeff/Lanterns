@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 664995031785632744}
   - component: {fileID: 664995031785632747}
   - component: {fileID: 664995031785632746}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Sphere
   m_TagString: Barrier
   m_Icon: {fileID: 0}
@@ -504,6 +504,7 @@ MonoBehaviour:
   MyPointLight: {fileID: 664995032268094338}
   MyRenderer: {fileID: 664995032525815590}
   Barrier: {fileID: 664995030794722101}
+  MyAudioSource: {fileID: 0}
 --- !u!135 &434413939359281248
 SphereCollider:
   m_ObjectHideFlags: 0

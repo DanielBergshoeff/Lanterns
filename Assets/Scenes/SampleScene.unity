@@ -1338,6 +1338,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7140329465808081279, guid: 7737647c22c1fc64a88d5cd030c352ce,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7737647c22c1fc64a88d5cd030c352ce, type: 3}
 --- !u!4 &456853491 stripped
@@ -3155,6 +3160,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerRun: {fileID: 8300000, guid: 745c883ffb8649e4aae725d44e760602, type: 3}
   PlayerWalk: {fileID: 8300000, guid: 5fb17aa265c66c54594c6289d3bff247, type: 3}
+  LightFire: {fileID: 8300000, guid: 9e0a461d96ca8b84686fed4d9d3f2dec, type: 3}
+  LightBigFire: {fileID: 8300000, guid: 9b14e74547401764bbba3147526cf7c6, type: 3}
+  BlowOutFire: {fileID: 8300000, guid: 3f733a1820ad50346af086fcb146ce0a, type: 3}
 --- !u!4 &1461279640
 Transform:
   m_ObjectHideFlags: 0
@@ -4446,6 +4454,7 @@ MonoBehaviour:
   MyPointLight: {fileID: 0}
   MyRenderer: {fileID: 0}
   Barrier: {fileID: 0}
+  MyAudioSource: {fileID: 0}
 --- !u!1001 &4256458684482403263
 PrefabInstance:
   m_ObjectHideFlags: 0
