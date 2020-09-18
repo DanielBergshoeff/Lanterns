@@ -6,6 +6,11 @@ public class AttackLanternGroup : LanternGroup
 {
     public GameObject BeamPrefab;
 
+    public Ray ray;
+    private Vector3 start;
+    private Vector3 direction;
+
+
     public override void LanternGotLit(PatternLantern litLantern) {
         PatternLantern litLantern2 = null;
         foreach(PatternLantern pl in PatternLanterns) {
@@ -22,26 +27,33 @@ public class AttackLanternGroup : LanternGroup
         litLantern.Delight();
         litLantern2.Delight();
 
-        Vector3 dir = litLantern2.transform.position - litLantern.transform.position;
+        Vector3 dir = litLantern.transform.position - litLantern2.transform.position;
         Vector3 heading = dir.normalized;
 
         float length = 0f;
 
         RaycastHit hit;
-        if(Physics.Raycast(litLantern2.transform.position, heading, out hit, 10f)) {
+        if(Physics.Raycast(litLantern.transform.position, heading, out hit, 100f, FireController.Instance.LitLayer)) {
             length = hit.distance;
         }
         else {
-            length = 10f;
+            length = 100f;
         }
 
-        length = 10f;
+        length += dir.magnitude;
+        
+        /*
+        start = litLantern2.transform.position;
+        direction = heading * length;*/
 
         GameObject go = Instantiate(BeamPrefab);
         go.transform.rotation = Quaternion.LookRotation(dir);
-        go.transform.position = litLantern2.transform.position - heading * length / 2f;
-        go.transform.GetChild(0).localScale = new Vector3(1f, length / 2f, 1f);
+        go.transform.position = litLantern2.transform.position + heading * length / 2f;
+        go.transform.GetChild(0).localScale = new Vector3(go.transform.GetChild(0).localScale.x, length / 2f, go.transform.GetChild(0).localScale.z);
     }
 
-    
+    private void Update() {
+        Debug.DrawRay(start, direction, Color.red);
+    }
+
 }
