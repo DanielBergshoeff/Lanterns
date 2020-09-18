@@ -502,7 +502,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Lit: 0
   MyPointLight: {fileID: 664995032268094338}
-  MyRenderer: {fileID: 0}
+  MyRenderer: {fileID: 664995032525815590}
   Barrier: {fileID: 664995030794722101}
 --- !u!135 &434413939359281248
 SphereCollider:
