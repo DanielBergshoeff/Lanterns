@@ -26,7 +26,7 @@ public class BarrierSource : FireSource
         Barrier.SetActive(true);
         gameObject.layer = 8;
         FireController.LatestBarrier = BarrierSourceManager.Instance.GetBarrierNr(this);
-        MyAudioSource.PlayOneShot(AudioManager.Instance.LightBigFire, 0.3f);
+        MyAudioSource.PlayOneShot(AudioManager.Instance.LightBigFire, 0.1f);
         return false;
     }
 
