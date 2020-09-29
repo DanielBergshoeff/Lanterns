@@ -24,6 +24,7 @@ public class FireController : FireSource
     public float MinEmissionIntensity = 0f;
     public float MaxEmissionIntensity = 2f;
     public float FirePower = 1f;
+    public float MaxFirePower = 1f;
 
     private Vector2 rightStickValues;
 
@@ -47,6 +48,12 @@ public class FireController : FireSource
             BarrierSourceManager.Instance.GetBarrierByNr(LatestBarrier).Light();
     }
 
+    public void RefillFire() {
+        while(FirePower < MaxFirePower) {
+            Light();
+        }
+    }
+
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -60,6 +67,10 @@ public class FireController : FireSource
 
     public override bool Light() {
         Lit = true;
+
+        if (FirePower >= MaxFirePower)
+            return false;
+
         FirePower += 0.2f;
         PlayerMat.SetColor("_EmissionColor", emissionColor * ((MaxEmissionIntensity - MinEmissionIntensity) * FirePower + MinEmissionIntensity));
         PlayerLight.intensity = FirePower;

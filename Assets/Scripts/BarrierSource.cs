@@ -15,10 +15,6 @@ public class BarrierSource : FireSource
         MyAudioSource = gameObject.AddComponent<AudioSource>();
     }
 
-    protected override void Start() {
-        //base.Start();
-    }
-
     public override bool Light() {
         Lit = true;
         MyRenderer.material = FireController.Instance.LitGreenMat;
@@ -27,16 +23,11 @@ public class BarrierSource : FireSource
         gameObject.layer = 8;
         FireController.LatestBarrier = BarrierSourceManager.Instance.GetBarrierNr(this);
         MyAudioSource.PlayOneShot(AudioManager.Instance.LightBigFire, 0.1f);
+        FireController.Instance.RefillFire();
         return false;
     }
 
     public override bool Delight() {
-        /*
-        Lit = false;
-        MyRenderer.material = FireController.Instance.GlassMat;
-        MyPointLight.enabled = false;
-        Barrier.SetActive(false);
-        gameObject.layer = 9;*/
         return false;
     }
 }
