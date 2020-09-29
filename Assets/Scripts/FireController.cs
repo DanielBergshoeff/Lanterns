@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class FireController : FireSource
 {
@@ -33,12 +34,21 @@ public class FireController : FireSource
     private bool startFire = false;
     private bool stopFire = false;
 
+    public Image FlameImage;
+    private Sprite[] flameSprites;
+
     private Color emissionColor;
 
     public static int LatestBarrier = 0;
 
     private void Awake() {
         Instance = this;
+
+        LoadSpriteSheet();
+    }
+
+    private void LoadSpriteSheet() {
+        flameSprites = Resources.LoadAll<Sprite>("Spritesheet_LightsCount_Lanterns");
     }
 
     public void ReturnToBarrier() {
@@ -74,13 +84,18 @@ public class FireController : FireSource
         FirePower += 0.2f;
         PlayerMat.SetColor("_EmissionColor", emissionColor * ((MaxEmissionIntensity - MinEmissionIntensity) * FirePower + MinEmissionIntensity));
         PlayerLight.intensity = FirePower;
+        FlameImage.sprite = flameSprites[(int)(FirePower / 0.2f)];
         return true;
     }
 
     public override bool Delight() {
+        if (FirePower <= 0.1f)
+            return false;
+
         FirePower -= 0.2f;
         PlayerMat.SetColor("_EmissionColor", emissionColor * ((MaxEmissionIntensity - MinEmissionIntensity) * FirePower + MinEmissionIntensity));
         PlayerLight.intensity = FirePower;
+        FlameImage.sprite = flameSprites[(int)(FirePower / 0.2f)];
 
         if (FirePower <= 0f)
             Lit = false;
@@ -167,7 +182,7 @@ public class FireController : FireSource
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width * fireXPosition / 2f + 0.5f * Screen.width, Screen.height * fireYPosition / 2f + 0.5f * Screen.height, 0f));
         if (Physics.Raycast(ray, out hit, 100f, UnlitLayer)) {
             if (hit.collider.CompareTag("FireSource")) {
-                if (FirePower > 0f) {
+                if (FirePower > 0.1f) {
                     FireSource fs = hit.collider.GetComponent<FireSource>();
                     if (fs.Light())
                         Delight();

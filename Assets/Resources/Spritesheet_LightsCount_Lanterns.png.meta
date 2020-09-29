@@ -1,0 +1,469 @@
+fileFormatVersion: 2
+guid: 42923f02146030044a279d92aa3b58b5
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8728909930419124979
+    second: Spritesheet_LightsCount_Lanterns_0
+  - first:
+      213: 3221013017728130682
+    second: Spritesheet_LightsCount_Lanterns_1
+  - first:
+      213: -5153548442029325164
+    second: Spritesheet_LightsCount_Lanterns_2
+  - first:
+      213: -5419337140455429383
+    second: Spritesheet_LightsCount_Lanterns_3
+  - first:
+      213: 1308188266799313956
+    second: Spritesheet_LightsCount_Lanterns_4
+  - first:
+      213: 4836075196835909215
+    second: Spritesheet_LightsCount_Lanterns_5
+  - first:
+      213: -5506450623093940862
+    second: Spritesheet_LightsCount_Lanterns_6
+  - first:
+      213: -6673402008621198014
+    second: Spritesheet_LightsCount_Lanterns_7
+  - first:
+      213: -8791249808813709307
+    second: Spritesheet_LightsCount_Lanterns_8
+  - first:
+      213: -7277633922503937686
+    second: Spritesheet_LightsCount_Lanterns_9
+  - first:
+      213: 8908024489130704651
+    second: Spritesheet_LightsCount_Lanterns_10
+  - first:
+      213: -6221046490757520521
+    second: Spritesheet_LightsCount_Lanterns_11
+  - first:
+      213: -2368355992371454445
+    second: Spritesheet_LightsCount_Lanterns_12
+  - first:
+      213: 5078837312154455814
+    second: Spritesheet_LightsCount_Lanterns_13
+  - first:
+      213: 6615834385641669632
+    second: Spritesheet_LightsCount_Lanterns_14
+  - first:
+      213: 3251500271839934819
+    second: Spritesheet_LightsCount_Lanterns_15
+  - first:
+      213: -2418478734429055282
+    second: Spritesheet_LightsCount_Lanterns_16
+  - first:
+      213: -3429560855233929411
+    second: Spritesheet_LightsCount_Lanterns_17
+  - first:
+      213: 4765070353445663057
+    second: Spritesheet_LightsCount_Lanterns_18
+  - first:
+      213: -6787631495118909182
+    second: Spritesheet_LightsCount_Lanterns_19
+  - first:
+      213: 3387528181281140842
+    second: Spritesheet_LightsCount_Lanterns_20
+  - first:
+      213: 4582686972152427939
+    second: Spritesheet_LightsCount_Lanterns_21
+  - first:
+      213: 5808512092632394982
+    second: Spritesheet_LightsCount_Lanterns_22
+  - first:
+      213: 6175310839932778693
+    second: Spritesheet_LightsCount_Lanterns_23
+  - first:
+      213: -5530736829468444472
+    second: Spritesheet_LightsCount_Lanterns_24
+  - first:
+      213: -8863388010554705586
+    second: Spritesheet_LightsCount_Lanterns_25
+  - first:
+      213: -3287770478139190713
+    second: Spritesheet_LightsCount_Lanterns_26
+  - first:
+      213: 8419551000583479183
+    second: Spritesheet_LightsCount_Lanterns_27
+  - first:
+      213: -8332098357584521949
+    second: Spritesheet_LightsCount_Lanterns_28
+  - first:
+      213: 2033502758283509953
+    second: Spritesheet_LightsCount_Lanterns_29
+  - first:
+      213: 3731312342339590970
+    second: Spritesheet_LightsCount_Lanterns_30
+  - first:
+      213: -5257711806458680477
+    second: Spritesheet_LightsCount_Lanterns_31
+  - first:
+      213: -3368282767120974376
+    second: Spritesheet_LightsCount_Lanterns_32
+  - first:
+      213: -3317234612952767936
+    second: Spritesheet_LightsCount_Lanterns_33
+  - first:
+      213: -1166416051791927270
+    second: Spritesheet_LightsCount_Lanterns_34
+  - first:
+      213: 8886996927887258869
+    second: Spritesheet_LightsCount_Lanterns_35
+  - first:
+      213: 3837915103906886110
+    second: Spritesheet_LightsCount_Lanterns_36
+  - first:
+      213: -7656196794136903254
+    second: Spritesheet_LightsCount_Lanterns_37
+  - first:
+      213: -104030659858853641
+    second: Spritesheet_LightsCount_Lanterns_38
+  - first:
+      213: 4331424334373075780
+    second: Spritesheet_LightsCount_Lanterns_39
+  - first:
+      213: -2096407914694971372
+    second: Spritesheet_LightsCount_Lanterns_40
+  - first:
+      213: -8199483595847177933
+    second: Spritesheet_LightsCount_Lanterns_41
+  - first:
+      213: 3549708961385083600
+    second: Spritesheet_LightsCount_Lanterns_42
+  - first:
+      213: -1543785485519828839
+    second: Spritesheet_LightsCount_Lanterns_43
+  - first:
+      213: 1985341349030947185
+    second: Spritesheet_LightsCount_Lanterns_44
+  - first:
+      213: -3786695977979588807
+    second: Spritesheet_LightsCount_Lanterns_45
+  - first:
+      213: 4051501768792839135
+    second: Spritesheet_LightsCount_Lanterns_46
+  - first:
+      213: -392057434990924578
+    second: Spritesheet_LightsCount_Lanterns_47
+  - first:
+      213: -3613412728337273345
+    second: Spritesheet_LightsCount_Lanterns_48
+  - first:
+      213: -7080542753312164768
+    second: Spritesheet_LightsCount_Lanterns_49
+  - first:
+      213: 1264227322006475335
+    second: Spritesheet_LightsCount_Lanterns_50
+  - first:
+      213: -7387585042148483481
+    second: Spritesheet_LightsCount_Lanterns_51
+  - first:
+      213: 6036058481915920449
+    second: Spritesheet_LightsCount_Lanterns_52
+  - first:
+      213: -8958431223082943895
+    second: Spritesheet_LightsCount_Lanterns_53
+  - first:
+      213: 5536615066213806530
+    second: Spritesheet_LightsCount_Lanterns_0
+  - first:
+      213: 5019661956875047463
+    second: Spritesheet_LightsCount_Lanterns_1
+  - first:
+      213: 8749155688204381093
+    second: Spritesheet_LightsCount_Lanterns_2
+  - first:
+      213: 6531081606394983989
+    second: Spritesheet_LightsCount_Lanterns_3
+  - first:
+      213: 3510313577992042649
+    second: Spritesheet_LightsCount_Lanterns_4
+  - first:
+      213: 2085097301713137626
+    second: Spritesheet_LightsCount_Lanterns_5
+  - first:
+      213: 7876555181351063295
+    second: Spritesheet_LightsCount_Lanterns_6
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: 2
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Spritesheet_LightsCount_Lanterns_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2048
+        width: 1024
+        height: 2048
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c1ffb7811206dc40800000000000000
+      internalID: 5536615066213806530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spritesheet_LightsCount_Lanterns_1
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 2048
+        width: 1024
+        height: 2048
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 722541854fb69a540800000000000000
+      internalID: 5019661956875047463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spritesheet_LightsCount_Lanterns_2
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 2048
+        width: 1024
+        height: 2048
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5aba2005ebe3b6970800000000000000
+      internalID: 8749155688204381093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spritesheet_LightsCount_Lanterns_3
+      rect:
+        serializedVersion: 2
+        x: 3072
+        y: 2048
+        width: 1024
+        height: 2048
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 536b24c2e1013aa50800000000000000
+      internalID: 6531081606394983989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spritesheet_LightsCount_Lanterns_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1024
+        height: 2048
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 998327ac99327b030800000000000000
+      internalID: 3510313577992042649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spritesheet_LightsCount_Lanterns_5
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 1024
+        height: 2048
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: adfacb6d2f0cfec10800000000000000
+      internalID: 2085097301713137626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spritesheet_LightsCount_Lanterns_6
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 0
+        width: 1024
+        height: 2048
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ffe4136a4352f4d60800000000000000
+      internalID: 7876555181351063295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: ccf81d8cdc2ad52488d0adf9d613a629
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
