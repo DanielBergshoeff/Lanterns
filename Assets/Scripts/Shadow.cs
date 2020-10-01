@@ -37,13 +37,8 @@ public class Shadow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float f = followingPlayer ? 2f : 0f;
         if (closestFireSource != null) {
-            if (closestFireSourceIsLantern)
-                transform.position = Vector3.MoveTowards(transform.position, ((Lantern)closestFireSource).MyPointLight.transform.position, Time.deltaTime * FlySpeed);
-            else {
-                transform.position = Vector3.MoveTowards(transform.position, closestFireSource.transform.position + Vector3.up * f, Time.deltaTime * FlySpeed);
-            }
+            transform.position = Vector3.MoveTowards(transform.position, closestFireSource.Core, Time.deltaTime * FlySpeed);
         }
 
         if (dying) {
@@ -66,7 +61,7 @@ public class Shadow : MonoBehaviour
                     StartDeath(eatingFs.transform);
                     eatingPlayer = false;
                 }
-                eatingFs.Delight();
+                eatingFs.Delight(null);
             }
         }
         else if(currentDisplacement > startDisplacement) {
@@ -77,13 +72,10 @@ public class Shadow : MonoBehaviour
 
     private void GetClosestFireSource() {
         closestFireSource = FireSourceManager.Instance.GetClosestActiveSource(transform.position, LightDetectionRange);
-        followingPlayer = false;
-
         if (closestFireSource == null) {
             float playerDist = (transform.position - FireController.Instance.transform.position).sqrMagnitude;
             if (playerDist < LightDetectionRange * LightDetectionRange) {
                 closestFireSource = FireController.Instance;
-                followingPlayer = true;
             }
         }
 

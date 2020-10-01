@@ -19,8 +19,8 @@ public class AttackLanternGroup : LanternGroup
         if (litLantern2 == null)
             return;
 
-        litLantern.Delight();
-        litLantern2.Delight();
+        litLantern.Delight(FireController.Instance);
+        litLantern2.Delight(FireController.Instance);
 
         Vector3 dir = litLantern.MyPointLight.transform.position - litLantern2.MyPointLight.transform.position;
         Vector3 heading = dir.normalized;

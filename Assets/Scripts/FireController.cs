@@ -8,7 +8,8 @@ using UnityEngine.UI;
 public class FireController : FireSource
 {
     public static FireController Instance;
-    public Animator PlayerAnimator;
+    public GameObject FlamePrefab;
+    public List<Flame> MyFlames;
 
     public RectTransform AimTransform;
     public RectTransform AimTransformLight;
@@ -24,8 +25,8 @@ public class FireController : FireSource
 
     public float MinEmissionIntensity = 0f;
     public float MaxEmissionIntensity = 2f;
-    public float FirePower = 1f;
-    public float MaxFirePower = 1f;
+    public int StartFirePower = 6;
+    public int MaxFirePower = 6;
     public float MaxLightIntensity = 0.5f;
 
     private Vector2 rightStickValues;
@@ -56,12 +57,14 @@ public class FireController : FireSource
         transform.position = BarrierSourceManager.Instance.GetBarrierByNr(LatestBarrier).transform.position;
 
         if (LatestBarrier != 0)
-            BarrierSourceManager.Instance.GetBarrierByNr(LatestBarrier).Light();
+            BarrierSourceManager.Instance.GetBarrierByNr(LatestBarrier).Light(null);
     }
 
     public void RefillFire() {
-        while(FirePower < MaxFirePower) {
-            Light();
+        while(MyFlames.Count < MaxFirePower) {
+            GameObject go = Instantiate(FlamePrefab);
+            go.transform.position = transform.position;
+            Light(go.GetComponent<Flame>());
         }
     }
 
@@ -74,31 +77,49 @@ public class FireController : FireSource
         base.Start();
 
         ReturnToBarrier();
+        SpawnFires();
     }
 
-    public override bool Light() {
+    private void SpawnFires() {
+        for (int i = 0; i < StartFirePower; i++) {
+            GameObject go = Instantiate(FlamePrefab);
+            go.transform.position = transform.position;
+            MyFlames.Add(go.GetComponent<Flame>());
+        }
+    }
+
+    public override bool Light(Flame flame) {
         Lit = true;
 
-        if (FirePower >= MaxFirePower)
+        if (MyFlames.Count >= MaxFirePower)
             return false;
 
-        FirePower += 0.2f;
-        PlayerMat.SetColor("_EmissionColor", emissionColor * ((MaxEmissionIntensity - MinEmissionIntensity) * FirePower + MinEmissionIntensity));
-        PlayerLight.intensity = (FirePower / MaxFirePower) * MaxLightIntensity;
-        FlameImage.sprite = flameSprites[(int)(FirePower / 0.2f)];
+
+        MyFlames.Add(flame);
+        PlayerMat.SetColor("_EmissionColor", emissionColor * ((MaxEmissionIntensity - MinEmissionIntensity) * MyFlames.Count + MinEmissionIntensity));
+        PlayerLight.intensity = (MyFlames.Count / MaxFirePower) * MaxLightIntensity;
+        FlameImage.sprite = flameSprites[MyFlames.Count];
         return true;
     }
 
-    public override bool Delight() {
-        if (FirePower <= 0.1f)
+    public override bool Delight(FireSource target) {
+        if (MyFlames.Count <= 0)
             return false;
 
-        FirePower -= 0.2f;
-        PlayerMat.SetColor("_EmissionColor", emissionColor * ((MaxEmissionIntensity - MinEmissionIntensity) * FirePower + MinEmissionIntensity));
-        PlayerLight.intensity = (FirePower / MaxFirePower) * MaxLightIntensity;
-        FlameImage.sprite = flameSprites[(int)(FirePower / 0.2f)];
+        if (target != null) {
+            MyFlames[MyFlames.Count - 1].Active = true;
+            MyFlames[MyFlames.Count - 1].TargetSource = target;
+        }
+        else {
+            Destroy(MyFlames[MyFlames.Count - 1].gameObject);
+        }
+        
+        MyFlames.RemoveAt(MyFlames.Count - 1);
+        PlayerMat.SetColor("_EmissionColor", emissionColor * ((MaxEmissionIntensity - MinEmissionIntensity) * MyFlames.Count + MinEmissionIntensity));
+        PlayerLight.intensity = (MyFlames.Count / MaxFirePower) * MaxLightIntensity;
+        FlameImage.sprite = flameSprites[MyFlames.Count];
 
-        if (FirePower <= 0f)
+        if (MyFlames.Count <= 0f)
             Lit = false;
 
         return true;
@@ -107,6 +128,8 @@ public class FireController : FireSource
     // Update is called once per frame
     void Update()
     {
+        Core = transform.position + Vector3.up * 1f;
+
         if (startFire) {
             AimFire();
             CheckForUnlitSource();
@@ -115,6 +138,12 @@ public class FireController : FireSource
         if (stopFire) {
             AimFire();
             CheckForLitSource();
+        }
+
+        float flameHeight = Mathf.Sin(Time.time * 2f) / 3.6f + 0.5f;
+
+        for (int i = 0; i < MyFlames.Count; i++) {
+            MyFlames[i].transform.position = Vector3.MoveTowards(MyFlames[i].transform.position, transform.position + Quaternion.Euler(0f, i * (360f / MyFlames.Count), 0f) * transform.forward + Vector3.up * flameHeight, 3f * Time.deltaTime);
         }
     }
 
@@ -172,8 +201,8 @@ public class FireController : FireSource
         if (Physics.Raycast(ray, out hit, 100f, LitLayer)) {
             if (hit.collider.CompareTag("FireSource")) {
                 FireSource fs = hit.collider.GetComponent<FireSource>();
-                if (fs.Delight())
-                    Light();
+                if (fs.CanSendLight())
+                    fs.Delight(this);
             }
         }
     }
@@ -183,12 +212,25 @@ public class FireController : FireSource
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width * fireXPosition / 2f + 0.5f * Screen.width, Screen.height * fireYPosition / 2f + 0.5f * Screen.height, 0f));
         if (Physics.Raycast(ray, out hit, 100f, UnlitLayer)) {
             if (hit.collider.CompareTag("FireSource")) {
-                if (FirePower > 0.1f) {
+                if (MyFlames.Count > 0) {
                     FireSource fs = hit.collider.GetComponent<FireSource>();
-                    if (fs.Light())
-                        Delight();
+
+                    if (fs.CanReceiveLight()) {
+                        Delight(fs);
+                    }
                 }
             }
         }
+    }
+
+    public override bool CanReceiveLight() {
+        return true;
+    }
+
+    public override bool CanSendLight() {
+        if (MyFlames.Count <= 0)
+            return false;
+
+        return true;
     }
 }

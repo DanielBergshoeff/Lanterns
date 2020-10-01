@@ -11,9 +11,6 @@ public class LaserBeam : MonoBehaviour
     }
 
     private void SelfDestroy() {
-        FireController.Instance.Light();
-        FireController.Instance.Light();
-
         Destroy(gameObject);
     }
 }

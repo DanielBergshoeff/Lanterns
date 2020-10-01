@@ -21,22 +21,19 @@ public class Moth : FireSource
         transform.position = FireController.Instance.transform.position + Vector3.up * 2f;
     }
 
-    public override bool Delight() {
+    public override bool Delight(FireSource target) {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         return true;
     }
 
     private void Update() {
-        float f = followingPlayer ? 2f : 0f;
+        Core = transform.position;
         if (closestFireSource == null)
             return;
-        if ((closestFireSource.transform.position + Vector3.up * f - transform.position).sqrMagnitude < minDistance)
+        if ((closestFireSource.Core - transform.position).sqrMagnitude < minDistance)
             return;
 
-        if(followingPlayer)
-            transform.position = Vector3.MoveTowards(transform.position, closestFireSource.transform.position + Vector3.up * f, Time.deltaTime * FlySpeed);
-        else
-            transform.position = Vector3.MoveTowards(transform.position, ((Lantern)closestFireSource).MyPointLight.transform.position, Time.deltaTime * FlySpeed);
+        transform.position = Vector3.MoveTowards(transform.position, closestFireSource.Core, Time.deltaTime * FlySpeed);
     }
 
     private void GetClosestFireSource() {
@@ -58,8 +55,17 @@ public class Moth : FireSource
         Invoke("GetClosestFireSource", UpdateTime);
     }
 
-    public override bool Light() {
+    public override bool Light(Flame flame) {
+        MyFlame = flame;
         Lit = true;
         return true;
+    }
+
+    public override bool CanReceiveLight() {
+        return false;
+    }
+
+    public override bool CanSendLight() {
+        return false;
     }
 }

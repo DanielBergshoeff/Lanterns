@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour
             return;
 
 
-        myRigidbody.AddForce(Vector3.up * (JumpForce + JumpForce * FireController.Instance.FirePower));
+        myRigidbody.AddForce(Vector3.up * JumpForce);
         PlayerAnimator.SetTrigger("Jump");
     }
 }

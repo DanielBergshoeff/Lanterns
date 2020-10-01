@@ -19,15 +19,15 @@ public class LinkedLantern : Lantern
         }
     }
 
-    public override bool Delight() {
-        base.Delight();
+    public override bool Delight(FireSource target) {
+        base.Delight(target);
 
         linking = false;
         return true;
     }
 
-    public override bool Light() {
-        base.Light();
+    public override bool Light(Flame flame) {
+        base.Light(flame);
 
         linking = true;
         linkTime = Time.time + WaitTime;
@@ -36,9 +36,8 @@ public class LinkedLantern : Lantern
 
     private void LightLinkedLantern() {
         if (MyLinkedLantern != null && Lit) {
-            if (!MyLinkedLantern.Lit) {
-                Delight();
-                MyLinkedLantern.Light();
+            if (MyLinkedLantern.CanReceiveLight()) {
+                Delight(MyLinkedLantern);
             }
             else {
                 linkTime = Time.time + WaitTime;

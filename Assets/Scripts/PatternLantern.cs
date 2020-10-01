@@ -13,8 +13,8 @@ public class PatternLantern : Lantern
             cooldownTime -= Time.deltaTime;
     }
 
-    public override bool Delight() {
-        base.Delight();
+    public override bool Delight(FireSource target) {
+        base.Delight(target);
 
         MyLanternGroup.LanternGotDelit(this);
 
@@ -22,11 +22,11 @@ public class PatternLantern : Lantern
         return true;
     }
 
-    public override bool Light() {
+    public override bool Light(Flame flame) {
         if (cooldownTime > 0f)
             return false;
 
-        base.Light();
+        base.Light(flame);
 
         MyLanternGroup.LanternGotLit(this);
 

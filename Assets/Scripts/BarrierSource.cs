@@ -9,18 +9,26 @@ public class BarrierSource : FireSource
     public GameObject Barrier;
 
     public AudioSource MyAudioSource;
+    private bool expectingLight;
 
     private void Awake() {
         MyRenderer = GetComponent<MeshRenderer>();
         MyAudioSource = gameObject.AddComponent<AudioSource>();
+        MyPointLight = GetComponentInChildren<Light>();
     }
 
     protected override void Start() {
-        
+        if (MyPointLight != null)
+            Core = MyPointLight.transform.position;
+        else
+            Core = transform.position;
+        //Don't remove
     }
 
-    public override bool Light() {
+    public override bool Light(Flame flame) {
+        expectingLight = false;
         Lit = true;
+        MyFlame = flame;
         MyRenderer.material = FireController.Instance.LitGreenMat;
         MyPointLight.enabled = true;
         Barrier.SetActive(true);
@@ -31,7 +39,19 @@ public class BarrierSource : FireSource
         return false;
     }
 
-    public override bool Delight() {
+    public override bool Delight(FireSource target) {
+        return false;
+    }
+
+    public override bool CanReceiveLight() {
+        if (Lit || expectingLight)
+            return false;
+
+        expectingLight = true;
+        return true;
+    }
+
+    public override bool CanSendLight() {
         return false;
     }
 }
