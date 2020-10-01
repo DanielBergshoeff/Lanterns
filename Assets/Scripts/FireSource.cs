@@ -4,7 +4,6 @@ using UnityEngine;
 
 public abstract class FireSource : MonoBehaviour
 {
-    protected float lastThrow = 0f;
     public bool Lit = false;
 
     protected virtual void Start() {

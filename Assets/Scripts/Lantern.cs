@@ -21,7 +21,13 @@ public class Lantern : FireSource
 
     public override bool Light() {
         Lit = true;
-        MyRenderer.material = FireController.Instance.LitMat;
+        Material[] mats = MyRenderer.materials;
+        for (int i = 0; i < mats.Length; i++) {
+            if(mats[i].name == FireController.Instance.GlassMat.name + " (Instance)") {
+                mats[i] = FireController.Instance.LitMat;
+            }
+        }
+        MyRenderer.materials = mats;
         MyAudioSource.PlayOneShot(AudioManager.Instance.LightFire, 0.5f);
         MyPointLight.enabled = true;
         gameObject.layer = 8;
@@ -30,7 +36,13 @@ public class Lantern : FireSource
 
     public override bool Delight() {
         Lit = false;
-        MyRenderer.material = FireController.Instance.GlassMat;
+        Material[] mats = MyRenderer.materials;
+        for (int i = 0; i < mats.Length; i++) {
+            if (mats[i].name == FireController.Instance.LitMat.name + " (Instance)") {
+                mats[i] = FireController.Instance.GlassMat;
+            }
+        }
+        MyRenderer.materials = mats;
         MyAudioSource.PlayOneShot(AudioManager.Instance.BlowOutFire, 1f);
         MyPointLight.enabled = false;
         gameObject.layer = 9;
