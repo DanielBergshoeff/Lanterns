@@ -26,6 +26,7 @@ public class FireController : FireSource
     public float MaxEmissionIntensity = 2f;
     public float FirePower = 1f;
     public float MaxFirePower = 1f;
+    public float MaxLightIntensity = 0.5f;
 
     private Vector2 rightStickValues;
 
@@ -83,7 +84,7 @@ public class FireController : FireSource
 
         FirePower += 0.2f;
         PlayerMat.SetColor("_EmissionColor", emissionColor * ((MaxEmissionIntensity - MinEmissionIntensity) * FirePower + MinEmissionIntensity));
-        PlayerLight.intensity = FirePower;
+        PlayerLight.intensity = (FirePower / MaxFirePower) * MaxLightIntensity;
         FlameImage.sprite = flameSprites[(int)(FirePower / 0.2f)];
         return true;
     }
@@ -94,7 +95,7 @@ public class FireController : FireSource
 
         FirePower -= 0.2f;
         PlayerMat.SetColor("_EmissionColor", emissionColor * ((MaxEmissionIntensity - MinEmissionIntensity) * FirePower + MinEmissionIntensity));
-        PlayerLight.intensity = FirePower;
+        PlayerLight.intensity = (FirePower / MaxFirePower) * MaxLightIntensity;
         FlameImage.sprite = flameSprites[(int)(FirePower / 0.2f)];
 
         if (FirePower <= 0f)

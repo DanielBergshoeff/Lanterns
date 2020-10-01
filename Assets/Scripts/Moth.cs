@@ -33,22 +33,27 @@ public class Moth : FireSource
         if ((closestFireSource.transform.position + Vector3.up * f - transform.position).sqrMagnitude < minDistance)
             return;
 
-        transform.position = Vector3.MoveTowards(transform.position, closestFireSource.transform.position + Vector3.up * f, Time.deltaTime * FlySpeed);
+        if(followingPlayer)
+            transform.position = Vector3.MoveTowards(transform.position, closestFireSource.transform.position + Vector3.up * f, Time.deltaTime * FlySpeed);
+        else
+            transform.position = Vector3.MoveTowards(transform.position, ((Lantern)closestFireSource).MyPointLight.transform.position, Time.deltaTime * FlySpeed);
     }
 
     private void GetClosestFireSource() {
-        closestFireSource = FireSourceManager.Instance.GetClosestActiveSource(transform.position, LightDetectionRange, this);
+        closestFireSource = FireSourceManager.Instance.GetClosestActiveLantern(transform.position, LightDetectionRange);
+        followingPlayer = false;
         if (closestFireSource == null) {
-            Invoke("GetClosestFireSource", UpdateTime);
-            return;
+            float playerDist = (transform.position - FireController.Instance.transform.position).sqrMagnitude;
+            if (playerDist < LightDetectionRange * LightDetectionRange) {
+                closestFireSource = FireController.Instance;
+                followingPlayer = true;
+            }
+            else {
+                Invoke("GetClosestFireSource", UpdateTime);
+                return;
+            }
         }
 
-        if (closestFireSource.CompareTag("Player")) {
-            followingPlayer = true;
-        }
-        else {
-            followingPlayer = false;
-        }
         transform.rotation = Quaternion.LookRotation(transform.forward);
         Invoke("GetClosestFireSource", UpdateTime);
     }

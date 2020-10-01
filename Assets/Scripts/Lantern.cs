@@ -17,6 +17,7 @@ public class Lantern : FireSource
 
     protected override void Start() {
         base.Start();
+        FireSourceManager.Instance.AddLantern(this);
     }
 
     public override bool Light() {

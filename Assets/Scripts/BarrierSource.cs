@@ -15,6 +15,10 @@ public class BarrierSource : FireSource
         MyAudioSource = gameObject.AddComponent<AudioSource>();
     }
 
+    protected override void Start() {
+        
+    }
+
     public override bool Light() {
         Lit = true;
         MyRenderer.material = FireController.Instance.LitGreenMat;

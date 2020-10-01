@@ -22,13 +22,13 @@ public class AttackLanternGroup : LanternGroup
         litLantern.Delight();
         litLantern2.Delight();
 
-        Vector3 dir = litLantern.transform.position - litLantern2.transform.position;
+        Vector3 dir = litLantern.MyPointLight.transform.position - litLantern2.MyPointLight.transform.position;
         Vector3 heading = dir.normalized;
 
         float length = 0f;
 
         RaycastHit hit;
-        if(Physics.Raycast(litLantern.transform.position, heading, out hit, 100f, FireController.Instance.LitLayer)) {
+        if(Physics.Raycast(litLantern.MyPointLight.transform.position, heading, out hit, 100f, FireController.Instance.LitLayer)) {
             length = hit.distance;
         }
         else {
@@ -39,7 +39,7 @@ public class AttackLanternGroup : LanternGroup
 
         GameObject go = Instantiate(BeamPrefab);
         go.transform.rotation = Quaternion.LookRotation(dir);
-        go.transform.position = litLantern2.transform.position + heading * length / 2f;
+        go.transform.position = litLantern2.MyPointLight.transform.position + heading * length / 2f;
         go.transform.GetChild(0).localScale = new Vector3(go.transform.GetChild(0).localScale.x, length / 2f, go.transform.GetChild(0).localScale.z);
     }
 }

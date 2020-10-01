@@ -10,6 +10,8 @@ public class Shadow : MonoBehaviour
     public float LightDetectionRange = 20f;
 
     private FireSource closestFireSource;
+    private bool followingPlayer;
+    private bool closestFireSourceIsLantern;
     private bool dying = false;
     private float dyingProcess = 0f;
     private float barrierScale = 0f;
@@ -35,11 +37,17 @@ public class Shadow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (closestFireSource != null)
-            transform.position = Vector3.MoveTowards(transform.position, closestFireSource.transform.position, Time.deltaTime * FlySpeed);
+        float f = followingPlayer ? 2f : 0f;
+        if (closestFireSource != null) {
+            if (closestFireSourceIsLantern)
+                transform.position = Vector3.MoveTowards(transform.position, ((Lantern)closestFireSource).MyPointLight.transform.position, Time.deltaTime * FlySpeed);
+            else {
+                transform.position = Vector3.MoveTowards(transform.position, closestFireSource.transform.position + Vector3.up * f, Time.deltaTime * FlySpeed);
+            }
+        }
 
         if (dying) {
-            dyingProcess += Time.deltaTime * 0.5f;
+            dyingProcess += Time.deltaTime * 2f;
             if(dyingProcess > 1f) {
                 dyingProcess = 1f;
                 dying = false;
@@ -69,6 +77,22 @@ public class Shadow : MonoBehaviour
 
     private void GetClosestFireSource() {
         closestFireSource = FireSourceManager.Instance.GetClosestActiveSource(transform.position, LightDetectionRange);
+        followingPlayer = false;
+
+        if (closestFireSource == null) {
+            float playerDist = (transform.position - FireController.Instance.transform.position).sqrMagnitude;
+            if (playerDist < LightDetectionRange * LightDetectionRange) {
+                closestFireSource = FireController.Instance;
+                followingPlayer = true;
+            }
+        }
+
+        if (closestFireSource is Lantern) {
+            closestFireSourceIsLantern = true;
+        }
+        else {
+            closestFireSourceIsLantern = false;
+        }
         Invoke("GetClosestFireSource", UpdateTime);
     }
 
