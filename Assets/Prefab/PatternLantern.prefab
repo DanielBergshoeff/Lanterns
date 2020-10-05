@@ -202,6 +202,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Lit: 0
+  MyFlame: {fileID: 0}
+  Core: {x: 0, y: 0, z: 0}
   MyPointLight: {fileID: 6179661433325421478}
   MyRenderer: {fileID: 6179661433505117264}
   MyAudioSource: {fileID: 0}
