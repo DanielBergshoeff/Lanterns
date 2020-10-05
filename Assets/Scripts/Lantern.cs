@@ -8,32 +8,75 @@ public class Lantern : FireSource
     public MeshRenderer MyRenderer;
     public AudioSource MyAudioSource;
 
+    private bool expectingLight = false;
+
     private void Awake() {
         MyRenderer = GetComponent<MeshRenderer>();
         MyAudioSource = gameObject.AddComponent<AudioSource>();
         MyAudioSource.volume = 1f;
         MyAudioSource.spatialBlend = 1f;
+        MyPointLight = GetComponentInChildren<Light>();
     }
 
     protected override void Start() {
         base.Start();
+        FireSourceManager.Instance.AddLantern(this);
+        Core = MyPointLight.transform.position;
     }
 
-    public override bool Light() {
+    public override bool Light(Flame flame) {
+        expectingLight = false;
         Lit = true;
-        MyRenderer.material = FireController.Instance.LitMat;
+        MyFlame = flame;
+        Material[] mats = MyRenderer.materials;
+        for (int i = 0; i < mats.Length; i++) {
+            if(mats[i].name == FireController.Instance.GlassMat.name + " (Instance)") {
+                mats[i] = FireController.Instance.LitMat;
+            }
+        }
+        MyRenderer.materials = mats;
         MyAudioSource.PlayOneShot(AudioManager.Instance.LightFire, 0.5f);
         MyPointLight.enabled = true;
         gameObject.layer = 8;
         return true;
     }
 
-    public override bool Delight() {
+    public override bool Delight(FireSource target) {
         Lit = false;
-        MyRenderer.material = FireController.Instance.GlassMat;
+        Material[] mats = MyRenderer.materials;
+        for (int i = 0; i < mats.Length; i++) {
+            if (mats[i].name == FireController.Instance.LitMat.name + " (Instance)") {
+                mats[i] = FireController.Instance.GlassMat;
+            }
+        }
+        MyRenderer.materials = mats;
         MyAudioSource.PlayOneShot(AudioManager.Instance.BlowOutFire, 1f);
         MyPointLight.enabled = false;
         gameObject.layer = 9;
+
+        if (target != null) {
+            MyFlame.Active = true;
+            MyFlame.TargetSource = target;
+        }
+        else {
+            Destroy(MyFlame.gameObject);
+        }
+
+        return true;
+    }
+
+    public override bool CanReceiveLight() {
+        if (Lit || expectingLight)
+            return false;
+
+        expectingLight = true;
+        return true;
+    }
+
+    public override bool CanSendLight() {
+        if (!Lit)
+            return false;
+       
         return true;
     }
 }
