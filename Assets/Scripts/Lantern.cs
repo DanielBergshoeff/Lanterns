@@ -55,8 +55,7 @@ public class Lantern : FireSource
         gameObject.layer = 9;
 
         if (target != null) {
-            MyFlame.Active = true;
-            MyFlame.TargetSource = target;
+            MyFlame.SetToActive(target);
         }
         else {
             Destroy(MyFlame.gameObject);

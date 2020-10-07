@@ -21,7 +21,7 @@ public class GateLanternGroup : LanternGroup
         litLanterns--;
 
         if (gateOpen) {
-            CloseGate();
+            //CloseGate(); Temporarily turned off for prototype
         }
     }
 

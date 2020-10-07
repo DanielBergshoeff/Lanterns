@@ -36,6 +36,7 @@ public class FireController : FireSource
     private float fireYPosition;
     private bool startFire = false;
     private bool stopFire = false;
+    private bool mouseUsed = false;
 
     public Image FlameImage;
     private Sprite[] flameSprites;
@@ -108,8 +109,7 @@ public class FireController : FireSource
             return false;
 
         if (target != null) {
-            MyFlames[MyFlames.Count - 1].Active = true;
-            MyFlames[MyFlames.Count - 1].TargetSource = target;
+            MyFlames[MyFlames.Count - 1].SetToActive(target);
         }
         else {
             Destroy(MyFlames[MyFlames.Count - 1].gameObject);
@@ -153,8 +153,54 @@ public class FireController : FireSource
         rightStickValues = value.Get<Vector2>();
     }
 
-    private void OnRightShoulder() {
+    private void OnLeftMouse() {
+        if (stopFire)
+            return;
+
+        mouseUsed = true;
+        FreeLookCam.Instance.OnLeftShoulder();
+        if (!startFire) {
+            startFire = true;
+            AimTransform = AimTransformLight;
+            AimTransform.gameObject.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            startFire = false;
+            AimTransform.gameObject.SetActive(false);
+        }
+    }
+
+    private void OnRightMouse() {
+        if (startFire)
+            return;
+
+        mouseUsed = true;
         FreeLookCam.Instance.OnRightShoulder();
+        if (!stopFire) {
+            stopFire = true;
+            AimTransform = AimTransformDouse;
+            AimTransform.gameObject.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            stopFire = false;
+            AimTransform.gameObject.SetActive(false);
+        }
+    }
+
+    private void OnLeftShoulder() {
+        if (stopFire)
+            return;
+
+        mouseUsed = false;
+        FreeLookCam.Instance.OnLeftShoulder();
         if (!startFire) {
             startFire = true;
             AimTransform = AimTransformLight;
@@ -166,8 +212,12 @@ public class FireController : FireSource
         }
     }
 
-    private void OnLeftShoulder() {
-        FreeLookCam.Instance.OnLeftShoulder();
+    private void OnRightShoulder() {
+        if (startFire)
+            return;
+
+        mouseUsed = false;
+        FreeLookCam.Instance.OnRightShoulder();
         if (!stopFire) {
             stopFire = true;
             AimTransform = AimTransformDouse;
@@ -180,25 +230,30 @@ public class FireController : FireSource
     }
 
     private void AimFire() {
-        if (rightStickValues.x > fireXPosition + 0.05f)
-            fireXPosition += 3f * Time.deltaTime;
-        else if (rightStickValues.x < fireXPosition - 0.05f) {
-            fireXPosition -= 3f * Time.deltaTime;
-        }
+        if (!mouseUsed) {
+            if (rightStickValues.x > fireXPosition + 0.05f)
+                fireXPosition += 3f * Time.deltaTime;
+            else if (rightStickValues.x < fireXPosition - 0.05f) {
+                fireXPosition -= 3f * Time.deltaTime;
+            }
 
-        if (rightStickValues.y > fireYPosition + 0.05f) {
-            fireYPosition += 3f * Time.deltaTime;
-        }
-        else if (rightStickValues.y < fireYPosition - 0.05f) {
-            fireYPosition -= 3f * Time.deltaTime;
-        }
+            if (rightStickValues.y > fireYPosition + 0.05f) {
+                fireYPosition += 3f * Time.deltaTime;
+            }
+            else if (rightStickValues.y < fireYPosition - 0.05f) {
+                fireYPosition -= 3f * Time.deltaTime;
+            }
 
-        AimTransform.position = new Vector3(Screen.width * fireXPosition / 2f + 0.5f * Screen.width, Screen.height * fireYPosition / 2f + 0.5f * Screen.height, 0f);
+            AimTransform.position = new Vector3(Screen.width * fireXPosition / 2f + 0.5f * Screen.width, Screen.height * fireYPosition / 2f + 0.5f * Screen.height, 0f);
+        }
+        else {
+            AimTransform.position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f);
+        }
     }
 
     private void CheckForLitSource() {
         RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width * fireXPosition / 2f + 0.5f * Screen.width, Screen.height * fireYPosition / 2f + 0.5f * Screen.height, 0f));
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(AimTransform.position.x, AimTransform.position.y, 0f));
         if (Physics.Raycast(ray, out hit, MaxFireRange, LitLayer)) {
             if (hit.collider.CompareTag("FireSource")) {
                 FireSource fs = hit.collider.GetComponent<FireSource>();
@@ -210,7 +265,7 @@ public class FireController : FireSource
 
     private void CheckForUnlitSource() {
         RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width * fireXPosition / 2f + 0.5f * Screen.width, Screen.height * fireYPosition / 2f + 0.5f * Screen.height, 0f));
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(AimTransform.position.x, AimTransform.position.y, 0f));
         if (Physics.Raycast(ray, out hit, MaxFireRange, UnlitLayer)) {
             if (hit.collider.CompareTag("FireSource")) {
                 if (MyFlames.Count > 0) {

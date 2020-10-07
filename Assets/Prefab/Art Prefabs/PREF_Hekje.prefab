@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9219679559283005717}
   - component: {fileID: 3605162607624918092}
   - component: {fileID: 1439810013978416038}
+  - component: {fileID: 2395438126963641819}
   m_Layer: 0
   m_Name: PREF_Hekje
   m_TagString: Untagged
@@ -80,3 +81,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &2395438126963641819
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4329759518509641870}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.24999997, y: 1.0000001, z: 0.5000001}
+  m_Center: {x: 0.12499997, y: 0.49999997, z: 0.25}
