@@ -121,7 +121,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6179661433505117266}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.82, y: 2.6300006, z: -24.02}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6179661433325421479}
@@ -154,7 +154,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1391f9b9c7217eb45aad1091d9b29f44, type: 2}
+  - {fileID: 2100000, guid: 75eca497bb8e94e4fb9275c27dab49a9, type: 2}
   - {fileID: 2100000, guid: 486230940b2113641960d1562e326fa3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -202,6 +202,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Lit: 0
+  MyFlame: {fileID: 0}
+  Core: {x: 0, y: 0, z: 0}
   MyPointLight: {fileID: 6179661433325421478}
   MyRenderer: {fileID: 6179661433505117264}
   MyAudioSource: {fileID: 0}
