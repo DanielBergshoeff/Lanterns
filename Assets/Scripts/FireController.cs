@@ -28,6 +28,7 @@ public class FireController : FireSource
     public int StartFirePower = 6;
     public int MaxFirePower = 6;
     public float MaxLightIntensity = 0.5f;
+    public float MaxFireRange = 100f;
 
     private Vector2 rightStickValues;
 
@@ -198,7 +199,7 @@ public class FireController : FireSource
     private void CheckForLitSource() {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width * fireXPosition / 2f + 0.5f * Screen.width, Screen.height * fireYPosition / 2f + 0.5f * Screen.height, 0f));
-        if (Physics.Raycast(ray, out hit, 100f, LitLayer)) {
+        if (Physics.Raycast(ray, out hit, MaxFireRange, LitLayer)) {
             if (hit.collider.CompareTag("FireSource")) {
                 FireSource fs = hit.collider.GetComponent<FireSource>();
                 if (fs.CanSendLight())
@@ -210,7 +211,7 @@ public class FireController : FireSource
     private void CheckForUnlitSource() {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width * fireXPosition / 2f + 0.5f * Screen.width, Screen.height * fireYPosition / 2f + 0.5f * Screen.height, 0f));
-        if (Physics.Raycast(ray, out hit, 100f, UnlitLayer)) {
+        if (Physics.Raycast(ray, out hit, MaxFireRange, UnlitLayer)) {
             if (hit.collider.CompareTag("FireSource")) {
                 if (MyFlames.Count > 0) {
                     FireSource fs = hit.collider.GetComponent<FireSource>();
