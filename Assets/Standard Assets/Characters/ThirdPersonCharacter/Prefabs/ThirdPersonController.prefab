@@ -198,11 +198,15 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 257
   MinEmissionIntensity: 0
-  MaxEmissionIntensity: 2
+  MaxEmissionIntensity: 0.5
   StartFirePower: 5
   MaxFirePower: 6
   MaxLightIntensity: 0.5
-  MaxFireRange: 15
+  MaxFireRange: 100
+  MinFlameSize: 0.3
+  MaxFlameSize: 1
+  MinDistance: 1
+  MaxDistance: 10
   FlameImage: {fileID: 8964069261676931152}
 --- !u!114 &242626802
 MonoBehaviour:
@@ -526,7 +530,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1448916986}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.598, z: 0}
+  m_LocalPosition: {x: 0, y: 0.783, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 408730}
@@ -545,7 +549,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0.86458814, b: 0.495283, a: 1}
   m_Intensity: 1
-  m_Range: 10
+  m_Range: 20
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10

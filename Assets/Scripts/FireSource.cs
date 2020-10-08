@@ -8,14 +8,17 @@ public abstract class FireSource : MonoBehaviour
     [HideInInspector] public Flame MyFlame;
     [HideInInspector] public Vector3 Core;
 
+    private void Awake() {
+        Core = transform.position;
+    }
+
     protected virtual void Start() {
         FireSourceManager.Instance.AddFireSource(this);
         if (Lit) {
             Flame f = Instantiate(FireController.Instance.FlamePrefab).GetComponent<Flame>();
             f.transform.position = Core;
-            Light(f);
+            f.SetToActive(this);
         }
-        Core = Vector3.zero;
     }
 
     public abstract bool Light(Flame flame);
