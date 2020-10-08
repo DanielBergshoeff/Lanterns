@@ -16,17 +16,21 @@ public class Lantern : FireSource
         MyAudioSource.volume = 1f;
         MyAudioSource.spatialBlend = 1f;
         MyPointLight = GetComponentInChildren<Light>();
+        Core = MyPointLight.transform.position;
     }
 
     protected override void Start() {
         base.Start();
         FireSourceManager.Instance.AddLantern(this);
-        Core = MyPointLight.transform.position;
     }
 
     public override bool Light(Flame flame) {
         expectingLight = false;
         Lit = true;
+        if(flame == null) {
+            flame = Instantiate(FireController.Instance.FlamePrefab).GetComponent<Flame>();
+            flame.transform.position = Core;
+        }
         MyFlame = flame;
         Material[] mats = MyRenderer.materials;
         for (int i = 0; i < mats.Length; i++) {
