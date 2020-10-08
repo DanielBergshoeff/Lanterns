@@ -14,14 +14,18 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 4000
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_90D887E4:
-        m_Texture: {fileID: 2800000, guid: 18214e9d6af6248559d501391856f1c7, type: 3}
+        m_Texture: {fileID: 2800000, guid: 00974e3c8e68f4141a697e9272cff5cb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_9F87B0AA_Texture_1:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture2DAsset_8661D16E_Out_0:
@@ -29,10 +33,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_FA40CFA2: 0.1
-    - _Fill: 0.28
-    - _FresnelPower: 2.61
-    - _Offset: -0.88
+    - Vector1_FA40CFA2: 0.63
+    - _Fill: 0.3
+    - _FresnelPower: 2.28
+    - _Offset: 7.57
     m_Colors:
-    - Vector2_299636E4: {r: 1, g: 10, b: 0, a: 0}
-    - _Emission: {r: 0.18017459, g: 2, b: 0.14659679, a: 0}
+    - Vector2_299636E4: {r: 1, g: 1, b: 0, a: 0}
+    - _Emission: {r: 4, g: 1.0196079, b: 0, a: 0}
