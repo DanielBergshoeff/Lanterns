@@ -340,7 +340,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0.6061204, g: 1, b: 0.6, a: 1}
+  m_Color: {r: 0.9245283, g: 0.5625726, b: 0.23985407, a: 1}
   m_Intensity: 3
   m_Range: 5
   m_SpotAngle: 30
@@ -501,6 +501,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Lit: 0
+  MyFlame: {fileID: 0}
+  Core: {x: 0, y: 0, z: 0}
   MyPointLight: {fileID: 664995032268094338}
   MyRenderer: {fileID: 664995032525815590}
   Barrier: {fileID: 664995030794722101}
