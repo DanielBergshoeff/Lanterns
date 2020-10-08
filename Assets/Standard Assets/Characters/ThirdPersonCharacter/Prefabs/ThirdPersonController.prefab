@@ -180,7 +180,6 @@ MonoBehaviour:
   Lit: 1
   MyFlame: {fileID: 0}
   Core: {x: 0, y: 0, z: 0}
-  PlayerAnimator: {fileID: 0}
   FlamePrefab: {fileID: 7640153258367219798, guid: e10b777869d3afd4c8821213865b098f,
     type: 3}
   MyFlames: []
@@ -189,7 +188,7 @@ MonoBehaviour:
   AimTransformDouse: {fileID: 1408318492}
   GlassMat: {fileID: 2100000, guid: 486230940b2113641960d1562e326fa3, type: 2}
   LitMat: {fileID: 2100000, guid: 0fc86247a80082b48bbd26cc314e1d42, type: 2}
-  LitGreenMat: {fileID: 2100000, guid: 08fc096299f1a0741bbf35a661257c1d, type: 2}
+  LitGreenMat: {fileID: 0}
   PlayerMat: {fileID: 2100000, guid: 7d1d638d3e9e5bd41a55ac23d8312ba1, type: 2}
   PlayerLight: {fileID: 1448916988}
   UnlitLayer:
@@ -199,10 +198,15 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 257
   MinEmissionIntensity: 0
-  MaxEmissionIntensity: 2
-  FirePower: 1
-  MaxFirePower: 1.2
+  MaxEmissionIntensity: 0.5
+  StartFirePower: 5
+  MaxFirePower: 6
   MaxLightIntensity: 0.5
+  MaxFireRange: 100
+  MinFlameSize: 0.3
+  MaxFlameSize: 1
+  MinDistance: 1
+  MaxDistance: 10
   FlameImage: {fileID: 8964069261676931152}
 --- !u!114 &242626802
 MonoBehaviour:
@@ -526,7 +530,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1448916986}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.598, z: 0}
+  m_LocalPosition: {x: 0, y: 0.783, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 408730}
@@ -545,7 +549,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0.86458814, b: 0.495283, a: 1}
   m_Intensity: 1
-  m_Range: 10
+  m_Range: 20
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10

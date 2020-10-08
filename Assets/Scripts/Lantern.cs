@@ -27,10 +27,6 @@ public class Lantern : FireSource
     public override bool Light(Flame flame) {
         expectingLight = false;
         Lit = true;
-        if(flame == null) {
-            flame = Instantiate(FireController.Instance.FlamePrefab).GetComponent<Flame>();
-            flame.transform.position = Core;
-        }
         MyFlame = flame;
         Material[] mats = MyRenderer.materials;
         for (int i = 0; i < mats.Length; i++) {

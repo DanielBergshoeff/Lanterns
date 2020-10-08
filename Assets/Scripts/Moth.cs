@@ -58,6 +58,7 @@ public class Moth : FireSource
     public override bool Light(Flame flame) {
         MyFlame = flame;
         Lit = true;
+        MyFlame.gameObject.SetActive(false);
         return true;
     }
 

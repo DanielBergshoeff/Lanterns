@@ -30,6 +30,13 @@ public class FireController : FireSource
     public float MaxLightIntensity = 0.5f;
     public float MaxFireRange = 100f;
 
+    [Header("Flame info")]
+    public float MinFlameSize = 0.3f;
+    public float MaxFlameSize = 1f;
+    public float MinDistance = 1f;
+    public float MaxDistance = 10f;
+
+
     private Vector2 rightStickValues;
 
     private float fireXPosition;
@@ -86,7 +93,7 @@ public class FireController : FireSource
         for (int i = 0; i < StartFirePower; i++) {
             GameObject go = Instantiate(FlamePrefab);
             go.transform.position = transform.position;
-            MyFlames.Add(go.GetComponent<Flame>());
+            Light(go.GetComponent<Flame>());
         }
     }
 
@@ -96,9 +103,9 @@ public class FireController : FireSource
         if (MyFlames.Count >= MaxFirePower)
             return false;
 
-
         MyFlames.Add(flame);
-        PlayerMat.SetColor("_EmissionColor", emissionColor * ((MaxEmissionIntensity - MinEmissionIntensity) * MyFlames.Count + MinEmissionIntensity));
+        float f = (float)MyFlames.Count / MaxFirePower;
+        PlayerMat.SetColor("_EmissionColor", emissionColor * ((MaxEmissionIntensity - MinEmissionIntensity) * f + MinEmissionIntensity));
         PlayerLight.intensity = (MyFlames.Count / MaxFirePower) * MaxLightIntensity;
         FlameImage.sprite = flameSprites[MyFlames.Count];
         return true;
@@ -116,7 +123,8 @@ public class FireController : FireSource
         }
         
         MyFlames.RemoveAt(MyFlames.Count - 1);
-        PlayerMat.SetColor("_EmissionColor", emissionColor * ((MaxEmissionIntensity - MinEmissionIntensity) * MyFlames.Count + MinEmissionIntensity));
+        float f = (float)MyFlames.Count / MaxFirePower;
+        PlayerMat.SetColor("_EmissionColor", emissionColor * ((MaxEmissionIntensity - MinEmissionIntensity) * f + MinEmissionIntensity));
         PlayerLight.intensity = (MyFlames.Count / MaxFirePower) * MaxLightIntensity;
         FlameImage.sprite = flameSprites[MyFlames.Count];
 
@@ -130,6 +138,14 @@ public class FireController : FireSource
     void Update()
     {
         Core = transform.position + Vector3.up * 1f;
+
+        foreach(Flame flame in Flame.AllFlames) {
+            float dist = Vector3.Distance(transform.position, flame.transform.position);
+            dist = Mathf.Clamp(dist, MinDistance, MaxDistance);
+            dist = dist / (MaxDistance - MinDistance);
+            dist = dist * (MaxFlameSize - MinFlameSize) + MinFlameSize;
+            flame.UpdateSize(dist);
+        }
 
         if (startFire) {
             AimFire();
