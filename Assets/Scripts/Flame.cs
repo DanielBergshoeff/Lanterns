@@ -6,13 +6,10 @@ public class Flame : MonoBehaviour
 {
     public bool Active = false;
     public FireSource TargetSource;
-    public float MoveSpeed = 1f;
+    public float TravelDuration = 1f;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private Vector3 startPosition;
+    private float startTime = 0f;
 
     // Update is called once per frame
     void Update()
@@ -20,16 +17,24 @@ public class Flame : MonoBehaviour
         if (!Active)
             return;
 
-        Vector3 direction = TargetSource.Core - transform.position;
-        if(direction.sqrMagnitude > 0.005f) {
-            Vector3 heading = direction.normalized * Mathf.Clamp(direction.magnitude, 1f, 1000f);
-            transform.position = transform.position + heading * MoveSpeed * Time.deltaTime;
+        float t = Time.time - startTime;
+
+        if(t < TravelDuration) {
+            transform.position = Vector3.Slerp(startPosition, TargetSource.Core, t / TravelDuration);
         }
         else {
+            transform.position = TargetSource.Core;
             Active = false;
             if (!TargetSource.Light(this)) {
                 Destroy(gameObject);
             }
         }
+    }
+
+    public void SetToActive(FireSource target) {
+        TargetSource = target;
+        startPosition = transform.position;
+        Active = true;
+        startTime = Time.time;
     }
 }
