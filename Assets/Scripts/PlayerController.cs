@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     public Animator PlayerAnimator;
     public Camera MyCamera;
 
+    public GameObject ExitGameCanvas;
+
     private InputAction movement;
     private InputAction jump;
     private Vector2 moveDir;
@@ -28,6 +30,29 @@ public class PlayerController : MonoBehaviour
     private void Start() {
         myRigidbody = GetComponent<Rigidbody>();
         myAudioSource = GetComponent<AudioSource>();
+    }
+
+    private void OnEscape() {
+        if (ExitGameCanvas == null)
+            return;
+
+        FreeLookCam.Instance.enabled = false;
+        ExitGameCanvas.SetActive(!ExitGameCanvas.activeSelf);
+    }
+
+    public void ExitGame() {
+        if (ExitGameCanvas == null)
+            return;
+
+        Application.Quit();
+        FreeLookCam.Instance.enabled = true;
+    }
+
+    public void ReturnToGame() {
+        if (ExitGameCanvas == null)
+            return;
+
+        ExitGameCanvas.SetActive(false);
     }
 
     // Update is called once per frame

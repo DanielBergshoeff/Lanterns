@@ -259,6 +259,7 @@ MonoBehaviour:
     type: 3}
   PlayerAnimator: {fileID: 1272457899}
   MyCamera: {fileID: 0}
+  ExitGameCanvas: {fileID: 0}
 --- !u!1 &952778164
 GameObject:
   m_ObjectHideFlags: 0
