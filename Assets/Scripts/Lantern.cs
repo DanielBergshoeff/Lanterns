@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class Lantern : FireSource
 {
@@ -15,6 +16,8 @@ public class Lantern : FireSource
         MyAudioSource = gameObject.AddComponent<AudioSource>();
         MyAudioSource.volume = 1f;
         MyAudioSource.spatialBlend = 1f;
+        AudioMixer mixer = Resources.Load("MixerGroups/SFX") as AudioMixer;
+        MyAudioSource.outputAudioMixerGroup = mixer.FindMatchingGroups("SFX_Lanterns")[0];
         MyPointLight = GetComponentInChildren<Light>();
         Core = MyPointLight.transform.position;
     }
