@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4238773865839570674}
   m_Layer: 9
   m_Name: PREF_LanternBeamHanging
-  m_TagString: Untagged
+  m_TagString: FireSource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -92,7 +92,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4096299633025264241}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.2914466, y: 1.7438056, z: 0.7400537}
