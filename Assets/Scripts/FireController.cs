@@ -46,6 +46,7 @@ public class FireController : FireSource
     private bool mouseUsed = false;
 
     public Image FlameImage;
+    public GameObject EndScreen;
     private Sprite[] flameSprites;
 
     private Color emissionColor;
@@ -56,6 +57,7 @@ public class FireController : FireSource
         Instance = this;
 
         LoadSpriteSheet();
+        EndScreen.SetActive(false);
     }
 
     private void LoadSpriteSheet() {
@@ -304,5 +306,14 @@ public class FireController : FireSource
             return false;
 
         return true;
+    }
+
+    private void OnCollisionEnter(Collision collision) {
+        if (collision.collider.CompareTag("EndScreen")) {
+            EndScreen.SetActive(true);
+
+            gameObject.GetComponent<PlayerController>().enabled = false;
+            enabled = false;
+        }
     }
 }
