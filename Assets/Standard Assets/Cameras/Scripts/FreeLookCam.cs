@@ -38,21 +38,21 @@ public class FreeLookCam : PivotBasedCameraRig
         rightStickValues = value.Get<Vector2>();
     }
 
-    public void OnLeftShoulder() {
+    public void OnLeftShoulder(bool b) {
         if (!startFire) {
-            startFire = true;
+            startFire = b;
         }
         else {
-            startFire = false;
+            startFire = b;
         }
     }
 
-    public void OnRightShoulder() {
+    public void OnRightShoulder(bool b) {
         if (!stopFire) {
-            stopFire = true;
+            stopFire = b;
         }
         else {
-            stopFire = false;
+            stopFire = b;
         }
     }
 
@@ -71,7 +71,9 @@ public class FreeLookCam : PivotBasedCameraRig
 
 
     protected void Update() {
-        HandleRotationMovement();
+        if (!(Time.timeScale < float.Epsilon || startFire || stopFire)) {
+            HandleRotationMovement(rightStickValues.x + Input.GetAxis("Mouse X"), rightStickValues.y + Input.GetAxis("Mouse Y"));
+        }
         /*
         if (m_LockCursor && Input.GetMouseButtonUp(0)) {
             Cursor.lockState = m_LockCursor ? CursorLockMode.Locked : CursorLockMode.None;
@@ -93,14 +95,7 @@ public class FreeLookCam : PivotBasedCameraRig
     }
 
 
-    private void HandleRotationMovement() {
-        if (Time.timeScale < float.Epsilon || startFire || stopFire)
-            return;
-
-        // Read the user input
-        var x = rightStickValues.x + Input.GetAxis("Mouse X");
-        var y = rightStickValues.y + Input.GetAxis("Mouse Y");
-
+    public void HandleRotationMovement(float x, float y) {
         // Adjust the look angle by an amount proportional to the turn speed and horizontal input.
         m_LookAngle += x * m_TurnSpeed;
 

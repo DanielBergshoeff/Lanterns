@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Art_Jantiene.unity
-    guid: e2af718722eb49149b056cd54b07f825
+    path: Assets/Scenes/Art_Final.unity
+    guid: 569a1a8b964178d4b971b539108f8011
   m_configObjects: {}

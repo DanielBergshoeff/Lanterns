@@ -36,6 +36,8 @@ public class FireController : FireSource
     public float MinDistance = 1f;
     public float MaxDistance = 10f;
 
+    public bool NewAimSystem = false;
+
 
     private Vector2 rightStickValues;
 
@@ -176,19 +178,25 @@ public class FireController : FireSource
             return;
 
         mouseUsed = true;
-        FreeLookCam.Instance.OnLeftShoulder();
-        if (!startFire) {
-            startFire = true;
-            AimTransform = AimTransformLight;
-            AimTransform.gameObject.SetActive(true);
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+        if (!NewAimSystem) {
+            if (!startFire) {
+                startFire = true;
+                AimTransform = AimTransformLight;
+                AimTransform.gameObject.SetActive(true);
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                startFire = false;
+                AimTransform.gameObject.SetActive(false);
+            }
+            FreeLookCam.Instance.OnLeftShoulder(startFire);
         }
         else {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            startFire = false;
-            AimTransform.gameObject.SetActive(false);
+            startFire = !startFire;
+            AimTransformLight.gameObject.SetActive(startFire);
         }
     }
 
@@ -197,19 +205,25 @@ public class FireController : FireSource
             return;
 
         mouseUsed = true;
-        FreeLookCam.Instance.OnRightShoulder();
-        if (!stopFire) {
-            stopFire = true;
-            AimTransform = AimTransformDouse;
-            AimTransform.gameObject.SetActive(true);
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+        if (!NewAimSystem) {
+            if (!stopFire) {
+                stopFire = true;
+                AimTransform = AimTransformDouse;
+                AimTransform.gameObject.SetActive(true);
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                stopFire = false;
+                AimTransformDouse.gameObject.SetActive(false);
+            }
+            FreeLookCam.Instance.OnRightShoulder(stopFire);
         }
         else {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            stopFire = false;
-            AimTransform.gameObject.SetActive(false);
+            stopFire = !stopFire;
+            AimTransformDouse.gameObject.SetActive(stopFire);
         }
     }
 
@@ -218,15 +232,23 @@ public class FireController : FireSource
             return;
 
         mouseUsed = false;
-        FreeLookCam.Instance.OnLeftShoulder();
-        if (!startFire) {
-            startFire = true;
-            AimTransform = AimTransformLight;
-            AimTransform.gameObject.SetActive(true);
+
+
+        if (!NewAimSystem) {
+            if (!startFire) {
+                startFire = true;
+                AimTransform = AimTransformLight;
+                AimTransform.gameObject.SetActive(true);
+            }
+            else {
+                startFire = false;
+                AimTransform.gameObject.SetActive(false);
+            }
+            FreeLookCam.Instance.OnLeftShoulder(startFire);
         }
         else {
-            startFire = false;
-            AimTransform.gameObject.SetActive(false);
+            startFire = !startFire;
+            AimTransformLight.gameObject.SetActive(startFire);
         }
     }
 
@@ -235,37 +257,73 @@ public class FireController : FireSource
             return;
 
         mouseUsed = false;
-        FreeLookCam.Instance.OnRightShoulder();
-        if (!stopFire) {
-            stopFire = true;
-            AimTransform = AimTransformDouse;
-            AimTransform.gameObject.SetActive(true);
+
+        if (!NewAimSystem) {
+            if (!stopFire) {
+                stopFire = true;
+                AimTransform = AimTransformDouse;
+                AimTransform.gameObject.SetActive(true);
+            }
+            else {
+                stopFire = false;
+                AimTransform.gameObject.SetActive(false);
+            }
+            FreeLookCam.Instance.OnRightShoulder(stopFire);
         }
         else {
-            stopFire = false;
-            AimTransform.gameObject.SetActive(false);
+            stopFire = !stopFire;
+            AimTransformDouse.gameObject.SetActive(stopFire);
         }
     }
 
     private void AimFire() {
-        if (!mouseUsed) {
-            if (rightStickValues.x > fireXPosition + 0.05f)
-                fireXPosition += 3f * Time.deltaTime;
-            else if (rightStickValues.x < fireXPosition - 0.05f) {
-                fireXPosition -= 3f * Time.deltaTime;
+        if (!NewAimSystem) {
+            if (!mouseUsed) {
+                if (rightStickValues.x > fireXPosition + 0.05f)
+                    fireXPosition += 3f * Time.deltaTime;
+                else if (rightStickValues.x < fireXPosition - 0.05f) {
+                    fireXPosition -= 3f * Time.deltaTime;
+                }
+
+                if (rightStickValues.y > fireYPosition + 0.05f) {
+                    fireYPosition += 3f * Time.deltaTime;
+                }
+                else if (rightStickValues.y < fireYPosition - 0.05f) {
+                    fireYPosition -= 3f * Time.deltaTime;
+                }
+
+                AimTransform.position = new Vector3(Screen.width * fireXPosition / 2f + 0.5f * Screen.width, Screen.height * fireYPosition / 2f + 0.5f * Screen.height, 0f);
+                if (Mathf.Abs(AimTransform.position.x) / (Screen.width / 2f) > 0.75f){
+                    FreeLookCam.Instance.OnRightShoulder(false);
+                }
+                else {
+                    FreeLookCam.Instance.OnRightShoulder(true);
+                }
+            }
+            else {
+                AimTransform.position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f);
             }
 
-            if (rightStickValues.y > fireYPosition + 0.05f) {
-                fireYPosition += 3f * Time.deltaTime;
-            }
-            else if (rightStickValues.y < fireYPosition - 0.05f) {
-                fireYPosition -= 3f * Time.deltaTime;
-            }
+            float x = Mathf.Abs(AimTransform.position.x) / Screen.width;
+            float y = Mathf.Abs(AimTransform.position.y) / Screen.height;
 
-            AimTransform.position = new Vector3(Screen.width * fireXPosition / 2f + 0.5f * Screen.width, Screen.height * fireYPosition / 2f + 0.5f * Screen.height, 0f);
-        }
-        else {
-            AimTransform.position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f);
+            if (x > 0.8f || x < 0.2f || y > 0.8f || y < 0.2f) {
+                if (x > 0.8f)
+                    x = 1f - ((1f - x) / 0.2f);
+                else if (x < 0.2f)
+                    x = (1f - (x / 0.2f)) * -1f;
+                else
+                    x = 0f;
+
+                if (y > 0.8f)
+                    y = 1f - ((1f - y) / 0.2f);
+                else if (y < 0.2f)
+                    y = (1f - (y / 0.2f)) * -1f;
+                else
+                    y = 0f;
+
+                FreeLookCam.Instance.HandleRotationMovement(x, y);
+            }
         }
     }
 
